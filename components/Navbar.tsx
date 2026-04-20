@@ -2,35 +2,95 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const links = [
-  { href: "/", label: "简历" },
-  { href: "/projects", label: "项目集" },
-  { href: "/analysis", label: "行业分析" },
-  { href: "/guestbook", label: "留言板" },
-];
+import { useI18n } from "@/lib/i18n";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { language, setLanguage } = useI18n();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const navItems = [
+    { href: "/", label: "首页" },
+    { href: "/projects", label: "项目" },
+    { href: "/analysis", label: "行业洞察" },
+  ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-5xl mx-auto flex items-center justify-between px-4 h-14">
-        <Link href="/" className="font-bold text-lg">范坤</Link>
-        <div className="flex gap-6 text-sm">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`transition-colors ${pathname === l.href ? "text-accent" : "text-text-secondary hover:text-accent"}`}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-card/80 backdrop-blur-lg border-b border-border">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="text-xl font-bold text-accent hover:text-accent-secondary transition-colors">
+            Frank Fan
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium transition-colors ${
+                  pathname === item.href ? "text-accent" : "text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(language === "zh" ? "en" : "zh")}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-primary border border-border hover:border-accent/50 transition-all"
             >
-              {l.label}
-            </Link>
-          ))}
+              <span className="text-xl">{language === "zh" ? "🇺🇸" : "🇨🇳"}</span>
+              <span className="text-sm font-medium">{language === "zh" ? "English" : "中文"}</span>
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-text-secondary hover:text-text-primary"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
-        <a href="mailto:frank@hk-it.hk" className="text-xs bg-accent/10 text-accent px-3 py-1.5 rounded-full hover:bg-accent/20 transition-colors">
-          联系我
-        </a>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden py-4 border-t border-border">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`block py-2 text-sm font-medium ${
+                  pathname === item.href ? "text-accent" : "text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <button
+              onClick={() => setLanguage(language === "zh" ? "en" : "zh")}
+              className="flex items-center gap-2 w-full px-3 py-2 mt-2 text-sm font-medium text-text-secondary hover:text-text-primary"
+            >
+              <span>{language === "zh" ? "🇺🇸" : "🇨🇳"}</span>
+              <span>{language === "zh" ? "切换到英文" : "Switch to English"}</span>
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );

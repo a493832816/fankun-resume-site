@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #0f172a;
-  --color-bg-secondary: #1e293b;
-  --color-bg-card: #1e293b;
-  --color-accent: #38bdf8;
-  --color-accent-dim: #0ea5e9;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-dim: #64748b;
-  --color-border: #334155;
+  --color-bg-primary: #0a0a0f;
+  --color-bg-card: #111118;
+  --color-bg-card-hover: #1a1a24;
+  --color-accent: #00e5a0;
+  --color-accent-secondary: #6366f1;
+  --color-text-primary: #e8e8ed;
+  --color-text-secondary: #9ca3af;
+  --color-text-dim: #6b7280;
+  --color-border: #1f1f2e;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--color-bg-primary);
@@ -28,4 +30,29 @@ body {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Fade-in up animation for timeline and cards */
+.animate-fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px -10px rgba(0, 229, 160, 0.15);
 }
