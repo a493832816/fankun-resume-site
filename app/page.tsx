@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 function useFadeIn() {
   useEffect(() => {
@@ -29,21 +30,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Nav */}
-      <nav className="fixed top-0 w-full z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-4xl mx-auto flex items-center justify-between px-4 h-14">
-          <span className="font-bold text-lg">范坤</span>
-          <div className="hidden sm:flex gap-6 text-sm text-text-secondary">
-            <a href="#about" className="hover:text-accent transition-colors">关于</a>
-            <a href="#experience" className="hover:text-accent transition-colors">经历</a>
-            <a href="#projects" className="hover:text-accent transition-colors">项目</a>
-            <a href="#skills" className="hover:text-accent transition-colors">技能</a>
-            <a href="#education" className="hover:text-accent transition-colors">教育</a>
-          </div>
-          <a href="mailto:frank@hk-it.hk" className="text-xs bg-accent/10 text-accent px-3 py-1.5 rounded-full hover:bg-accent/20 transition-colors">联系我</a>
-        </div>
-      </nav>
-
       {/* Hero */}
       <header id="about" className="pt-32 pb-16 px-4 max-w-4xl mx-auto">
         <div className="fade-in">
@@ -53,8 +39,9 @@ export default function Home() {
             资深 IT 项目交付管理，超5年系统集成与数字化转型经验。专注企业级集成解决方案（iPaaS）、内容管理（ECM）、大数据项目交付，擅长全生命周期管理与跨部门协调。
           </p>
           <div className="flex flex-wrap gap-4 text-sm text-text-dim">
-            <a href="tel:+8615007117910" className="hover:text-accent transition-colors">📞 (+86) 150-0711-7910</a>
             <a href="mailto:frank@hk-it.hk" className="hover:text-accent transition-colors">✉️ frank@hk-it.hk</a>
+            <a href="https://x.com/frank4938" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">𝕏 @frank4938</a>
+            <a href="https://frank4938.feishu.cn" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">🐦 飞书</a>
           </div>
         </div>
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 fade-in">
@@ -92,20 +79,17 @@ export default function Home() {
         ))}
       </Section>
 
-      {/* Projects */}
+      {/* Projects Preview */}
       <Section id="projects" title="主要项目经验">
         {[
-          { name: "香港工商注册材料审批系统优化", org: "香港工商注册处", period: "2025.05 – 至今", team: "5-8人", budget: "¥90万", results: ["页面加载提升80%", "文档上传提升80%", "中文兼容率99%+"] },
-          { name: "智慧病房 iPaaS 集成", org: "吉林大学第一附属医院", period: "2024.10 – 2025.04", team: "5+人", budget: "¥80万", results: ["接口开发量减少60%", "交互效率提升40%", "日均15万+消息稳定运行"] },
-          { name: "大数据门店选址平台搭建", org: "BMW", period: "2021.04 – 2024.05", team: "20+人", budget: "¥1000万", results: ["提升选址准确率", "平台纳入企业市场战略参考框架"] },
+          { name: "香港工商注册材料审批系统优化", org: "香港工商注册处", period: "2025.05 – 至今", results: ["页面加载提升80%", "文档上传提升80%", "中文兼容率99%+"] },
+          { name: "智慧病房 iPaaS 集成", org: "吉林大学第一附属医院", period: "2024.10 – 2025.04", results: ["接口开发量减少60%", "交互效率提升40%", "日均15万+消息稳定运行"] },
+          { name: "大数据门店选址平台搭建", org: "BMW", period: "2021.04 – 2024.05", results: ["提升选址准确率", "平台纳入企业市场战略参考框架"] },
         ].map((p) => (
           <Card key={p.name}>
             <h3 className="font-semibold text-lg mb-1">{p.name}</h3>
             <div className="flex flex-wrap gap-2 text-xs text-text-dim mb-3">
-              <span>{p.org}</span>
-              <span>·</span><span>{p.period}</span>
-              <span>·</span><span>团队 {p.team}</span>
-              <span>·</span><span>{p.budget}</span>
+              <span>{p.org}</span><span>·</span><span>{p.period}</span>
             </div>
             <ul className="space-y-1">
               {p.results.map((r) => (
@@ -116,6 +100,9 @@ export default function Home() {
             </ul>
           </Card>
         ))}
+        <Link href="/projects" className="inline-block mt-4 text-accent text-sm hover:underline">
+          查看完整项目集 →
+        </Link>
       </Section>
 
       {/* Skills */}
@@ -160,11 +147,6 @@ export default function Home() {
           </ul>
         </Card>
       </Section>
-
-      {/* Footer */}
-      <footer className="border-t border-border py-8 px-4 text-center text-text-dim text-sm">
-        <p>© {new Date().getFullYear()} 范坤 · 用 Next.js & Tailwind CSS 构建</p>
-      </footer>
     </>
   );
 }
