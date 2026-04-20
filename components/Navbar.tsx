@@ -7,29 +7,25 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { language, setLanguage } = useI18n();
+  const { language, setLanguage, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+  useEffect(() => { setIsOpen(false); }, [pathname]);
 
   const navItems = [
-    { href: "/", label: "首页" },
-    { href: "/projects", label: "项目" },
-    { href: "/analysis", label: "行业洞察" },
+    { href: "/", labelKey: "nav_home" },
+    { href: "/projects", labelKey: "nav_projects" },
+    { href: "/analysis", labelKey: "nav_analysis" },
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-card/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-accent hover:text-accent-secondary transition-colors">
+          <Link href="/" className="text-xl font-bold text-accent hover:text-accent-secondary transition-colors font-[family-name:var(--font-heading)]">
             Frank Fan
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
@@ -39,11 +35,9 @@ export default function Navbar() {
                   pathname === item.href ? "text-accent" : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ))}
-
-            {/* Language Switcher */}
             <button
               onClick={() => setLanguage(language === "zh" ? "en" : "zh")}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-primary border border-border hover:border-accent/50 transition-all"
@@ -53,11 +47,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-text-secondary hover:text-text-primary"
-          >
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-text-secondary hover:text-text-primary">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -68,7 +58,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border">
             {navItems.map((item) => (
@@ -79,7 +68,7 @@ export default function Navbar() {
                   pathname === item.href ? "text-accent" : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ))}
             <button

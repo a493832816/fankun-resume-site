@@ -31,7 +31,7 @@ export default function Counter({ target, suffix = "", className = "", duration 
 
   return (
     <div className={className}>
-      <span className="text-2xl md:text-4xl font-bold text-accent">{count.toLocaleString()}{suffix}</span>
+      <span className="text-2xl md:text-4xl font-bold text-accent-secondary">{count.toLocaleString()}{suffix}</span>
     </div>
   );
 }

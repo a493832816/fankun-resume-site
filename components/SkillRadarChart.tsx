@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 interface SkillData {
   name: string;
   value: number;
-  color?: string;
 }
 
 interface SkillRadarChartProps {
@@ -14,108 +13,96 @@ interface SkillRadarChartProps {
 }
 
 export default function SkillRadarChart({ skills, className = "" }: SkillRadarChartProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Setup canvas
-    const size = 400;
-    canvas.width = size;
-    canvas.height = size;
-    ctx.clearRect(0, 0, size, size);
-
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const radius = 150;
-    const sides = 6;
-    const angleStep = (Math.PI * 2) / sides;
-
-    // Draw background grid
-    for (let level = 1; level <= 4; level++) {
-      const levelRadius = (radius / 4) * level;
-      ctx.beginPath();
-      for (let i = 0; i <= sides; i++) {
-        const angle = i * angleStep - Math.PI / 2;
-        const x = centerX + levelRadius * Math.cos(angle);
-        const y = centerY + levelRadius * Math.sin(angle);
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      ctx.strokeStyle = "rgba(99, 102, 241, 0.3)";
-      ctx.stroke();
-    }
-
-    // Draw axes and labels
-    for (let i = 0; i < sides; i++) {
-      const angle = i * angleStep - Math.PI / 2;
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.lineTo(x, y);
-      ctx.strokeStyle = "rgba(99, 102, 241, 0.3)";
-      ctx.stroke();
-
-      // Labels
-      const labelRadius = radius + 25;
-      const labelX = centerX + labelRadius * Math.cos(angle);
-      const labelY = centerY + labelRadius * Math.sin(angle);
-      ctx.font = "14px DM Sans, sans-serif";
-      ctx.fillStyle = "#9ca3af";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(skills[i]?.name || "", labelX, labelY);
-    }
-
-    // Draw data polygon
-    ctx.beginPath();
-    for (let i = 0; i < sides; i++) {
-      const angle = i * angleStep - Math.PI / 2;
-      const value = skills[i]?.value || 0;
-      const r = (value / 100) * radius;
-      const x = centerX + r * Math.cos(angle);
-      const y = centerY + r * Math.sin(angle);
-      if (i === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
-      }
-    }
-    ctx.closePath();
-    ctx.fillStyle = "rgba(0, 229, 160, 0.3)";
-    ctx.fill();
-    ctx.strokeStyle = "#00e5a0";
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    // Draw data points
-    for (let i = 0; i < sides; i++) {
-      const angle = i * angleStep - Math.PI / 2;
-      const value = skills[i]?.value || 0;
-      const r = (value / 100) * radius;
-      const x = centerX + r * Math.cos(angle);
-      const y = centerY + r * Math.sin(angle);
-      ctx.beginPath();
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
-      ctx.fillStyle = "#00e5a0";
-      ctx.fill();
-      ctx.strokeStyle = "#111118";
-      ctx.lineWidth = 2;
-      ctx.stroke();
+    const svg = svgRef.current;
+    if (!svg) return;
+    // Trigger animation by adding class
+    const poly = svg.querySelector(".radar-polygon");
+    if (poly) {
+      (poly as SVGElement).classList.remove("radar-polygon");
+      void (poly as SVGElement).getBoundingClientRect();
+      (poly as SVGElement).classList.add("radar-polygon");
     }
   }, [skills]);
 
+  const size = 400;
+  const cx = size / 2;
+  const cy = size / 2;
+  const radius = 130;
+  const sides = skills.length;
+  const angleStep = (Math.PI * 2) / sides;
+
+  const getPoint = (i: number, r: number) => {
+    const angle = i * angleStep - Math.PI / 2;
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  };
+
+  // Hexagon grid points
+  const gridLevels = [1, 2, 3];
+  const dataPoints = skills.map((s, i) => getPoint(i, (s.value / 100) * radius));
+  const dataPath = dataPoints.map((p, i) => (i === 0 ? "M" : "L") + `${p.x},${p.y}`).join(" ") + "Z";
+
   return (
     <div className={`flex justify-center items-center ${className}`}>
-      <canvas ref={canvasRef} className="max-w-full h-auto" />
+      <svg ref={svgRef} viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[320px] h-auto">
+        <defs>
+          <linearGradient id="radarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0.15" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Grid hexagons */}
+        {gridLevels.map((level) => {
+          const r = (radius / 3) * level;
+          const pts = Array.from({ length: sides }, (_, i) => {
+            const p = getPoint(i, r);
+            return `${p.x},${p.y}`;
+          }).join(" ");
+          return <polygon key={level} points={pts} fill="none" stroke="#1e293b" strokeWidth="1" />;
+        })}
+
+        {/* Axis lines */}
+        {skills.map((_, i) => {
+          const p = getPoint(i, radius);
+          return <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="#1e293b" strokeWidth="1" />;
+        })}
+
+        {/* Data polygon */}
+        <polygon
+          className="radar-polygon"
+          points={dataPoints.map((p) => `${p.x},${p.y}`).join(" ")}
+          fill="url(#radarGrad)"
+          stroke="#3b82f6"
+          strokeWidth="2"
+          filter="url(#glow)"
+        />
+
+        {/* Data points */}
+        {dataPoints.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="#0c0c14" strokeWidth="2" filter="url(#glow)" />
+        ))}
+
+        {/* Labels */}
+        {skills.map((s, i) => {
+          const labelR = radius + 30;
+          const p = getPoint(i, labelR);
+          return (
+            <text key={i} x={p.x} y={p.y} textAnchor="middle" dominantBaseline="middle" fill="#94a3b8" fontSize="13">
+              {s.name}
+            </text>
+          );
+        })}
+      </svg>
     </div>
   );
 }
