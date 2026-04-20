@@ -2,8 +2,10 @@
 
 import { useI18n } from "@/lib/i18n";
 
+type ArchType = "hospital" | "exam" | "gac" | "hk" | "bmw" | "bond";
+
 interface ArchitectureDiagramProps {
-  type: "ipaas" | "bigdata" | "ecm" | "k8s" | "mq";
+  type: ArchType;
   className?: string;
 }
 
@@ -47,135 +49,157 @@ export default function ArchitectureDiagram({ type, className = "" }: Architectu
     </g>
   );
 
-  const Curve = ({ x1, y1, x2, y2, color = "#3b82f6", green = false }: { x1: number; y1: number; x2: number; y2: number; color?: string; green?: boolean }) => {
+  const Arrow = ({ x1, y1, x2, y2, green = false }: { x1: number; y1: number; x2: number; y2: number; green?: boolean }) => {
     const mx = (x1 + x2) / 2;
     const my = (y1 + y2) / 2;
     const dx = x2 - x1;
     const dy = y2 - y1;
-    const cx1 = mx - dy * 0.2;
-    const cy1 = my + dx * 0.2;
-    return <path d={`M${x1},${y1} Q${cx1},${cy1} ${x2},${y2}`} fill="none" stroke={color} strokeWidth="1.5" markerEnd={green ? "url(#arrowheadGreen)" : "url(#arrowhead)"} />;
+    const cx1 = mx - dy * 0.15;
+    const cy1 = my + dx * 0.15;
+    return <path d={`M${x1},${y1} Q${cx1},${cy1} ${x2},${y2}`} fill="none" stroke={green ? "#10b981" : "#3b82f6"} strokeWidth="1.5" markerEnd={green ? "url(#arrowheadGreen)" : "url(#arrowhead)"} />;
   };
 
-  const diagrams: Record<string, React.ReactNode> = {
-    ipaas: (
-      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+  const Bidir = ({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) => {
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const cx1 = mx - dy * 0.15;
+    const cy1 = my + dx * 0.15;
+    return <>
+      <path d={`M${x1},${y1} Q${cx1},${cy1} ${x2},${y2}`} fill="none" stroke="#3b82f6" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+      <path d={`M${x2},${y2} Q${cx1 + 5},${cy1 + 5} ${x1},${y1}`} fill="none" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#arrowheadGreen)" />
+    </>;
+  };
+
+  const diagrams: Record<ArchType, React.ReactNode> = {
+    // Hospital iPaaS: HIS/LIS/PACS/EMR → ACE → MQ
+    hospital: (
+      <svg viewBox="0 0 500 320" className="w-full h-auto" style={{ maxWidth: "560px" }}>
         {defs}
-        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        {/* Platform container */}
-        <rect x="40" y="25" width="420" height="250" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="48" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_ipaas_title")}</text>
+        <rect x="0" y="0" width="500" height="320" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="280" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_hospital_title")}</text>
 
         {/* Source systems */}
-        <Node x={50} y={75} w={80} h={40} label="CRM" color="#3b82f6" />
-        <Node x={145} y={75} w={80} h={40} label="ERP" color="#3b82f6" />
-        <Node x={240} y={75} w={80} h={40} label="HRM" color="#3b82f6" />
-        <Node x={335} y={75} w={80} h={40} label="SCM" color="#3b82f6" />
+        <Node x={30} y={65} w={85} h={38} label={t("arch_hospital_his")} color="#3b82f6" />
+        <Node x={135} y={65} w={85} h={38} label={t("arch_hospital_lis")} color="#3b82f6" />
+        <Node x={240} y={65} w={85} h={38} label={t("arch_hospital_pacs")} color="#3b82f6" />
+        <Node x={345} y={65} w={85} h={38} label={t("arch_hospital_emr")} color="#3b82f6" />
 
-        {/* Integration engine */}
-        <Node x={120} y={155} w={260} h={55} label={t("arch_ipaas_engine")} sub={t("arch_ipaas_engine_sub")} color="#10b981" />
+        {/* ACE Integration Engine */}
+        <Node x={100} y={150} w={300} h={50} label={t("arch_hospital_ace")} sub={t("arch_hospital_ace_sub")} color="#10b981" />
 
-        {/* Curves from systems to engine */}
-        <Curve x1={90} y1={115} x2={170} y2={155} green />
-        <Curve x1={185} y1={115} x2={210} y2={155} green />
-        <Curve x1={280} y1={115} x2={290} y2={155} green />
-        <Curve x1={375} y1={115} x2={370} y2={155} green />
+        {/* Arrows from systems to ACE */}
+        <Arrow x1={72} y1={103} x2={160} y2={150} green />
+        <Arrow x1={177} y1={103} x2={210} y2={150} green />
+        <Arrow x1={282} y1={103} x2={290} y2={150} green />
+        <Arrow x1={387} y1={103} x2={380} y2={150} green />
 
-        {/* Output */}
-        <Node x={120} y={230} w={120} h={35} label="Monitoring" color="#3b82f6" />
-        <Node x={260} y={230} w={120} h={35} label="Analytics" color="#3b82f6" />
-        <Curve x1={200} y1={210} x2={180} y2={230} />
-        <Curve x1={300} y1={210} x2={320} y2={230} />
+        {/* MQ Message Bus */}
+        <Node x={100} y={240} w={300} h={45} label={t("arch_hospital_mq")} sub={t("arch_hospital_mq_sub")} color="#3b82f6" />
+        <Arrow x1={250} y1={200} x2={250} y2={240} />
       </svg>
     ),
 
-    bigdata: (
-      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+    // Exam System Flow: HIS ↔ Exam ↔ LIS ↔ PACS
+    exam: (
+      <svg viewBox="0 0 500 250" className="w-full h-auto" style={{ maxWidth: "560px" }}>
         {defs}
-        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="40" y="25" width="420" height="250" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="48" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_bigdata_title")}</text>
+        <rect x="0" y="0" width="500" height="250" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="210" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_exam_title")}</text>
 
-        <Node x={40} y={80} w={80} h={35} label="Database" color="#3b82f6" />
-        <Node x={40} y={130} w={80} h={35} label="API" color="#3b82f6" />
-        <Node x={40} y={180} w={80} h={35} label="Logs" color="#3b82f6" />
+        <Node x={30} y={100} w={90} h={50} label={t("arch_exam_his")} color="#3b82f6" />
+        <Node x={155} y={100} w={90} h={50} label={t("arch_exam_exam")} color="#10b981" />
+        <Node x={280} y={100} w={90} h={50} label={t("arch_exam_lis")} color="#3b82f6" />
+        <Node x={395} y={100} w={70} h={50} label={t("arch_exam_pacs")} color="#3b82f6" />
 
-        <Node x={180} y={90} w={140} h={55} label={t("arch_bigdata_processing")} sub={t("arch_bigdata_etl")} color="#10b981" />
-        <Node x={180} y={165} w={140} h={55} label={t("arch_bigdata_warehouse")} sub={t("arch_bigdata_analytics")} color="#10b981" />
-
-        <Curve x1={120} y1={97} x2={180} y2={110} green />
-        <Curve x1={120} y1={147} x2={180} y2={120} green />
-        <Curve x1={120} y1={197} x2={180} y2={190} green />
-
-        <Node x={370} y={90} w={80} h={55} label="Dashboard" color="#3b82f6" />
-        <Node x={370} y={165} w={80} h={55} label="Data API" color="#3b82f6" />
-        <Curve x1={320} y1={117} x2={370} y2={117} />
-        <Curve x1={320} y1={192} x2={370} y2={192} />
+        <Bidir x1={120} y1={125} x2={155} y2={125} />
+        <Bidir x1={245} y1={125} x2={280} y2={125} />
+        <Bidir x1={370} y1={125} x2={395} y2={125} />
       </svg>
     ),
 
-    ecm: (
+    // GAC Honda: ESB → APISIX → K8s
+    gac: (
       <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
         {defs}
         <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="40" y="25" width="420" height="250" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="48" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_ecm_title")}</text>
+        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_gac_title")}</text>
 
-        <Node x={50} y={90} w={80} h={55} label={t("arch_ecm_users")} color="#3b82f6" />
-        <Node x={190} y={80} w={120} h={75} label={t("arch_ecm_repo")} sub={t("arch_ecm_store")} color="#10b981" />
-        <Node x={370} y={90} w={80} h={55} label={t("arch_ecm_access")} color="#3b82f6" />
+        <Node x={180} y={65} w={130} h={40} label={t("arch_gac_esb")} color="#64748b" />
+        <Node x={130} y={140} w={240} h={50} label={t("arch_gac_apisix")} sub={t("arch_gac_apisix_sub")} color="#10b981" />
+        <Node x={100} y={225} w={300} h={45} label={t("arch_gac_k8s")} sub={t("arch_gac_k8s_sub")} color="#3b82f6" />
 
-        <Curve x1={130} y1={117} x2={190} y2={117} green />
-        <Curve x1={310} y1={117} x2={370} y2={117} />
-
-        <Node x={140} y={190} w={220} h={45} label={t("arch_ecm_workflow")} sub={t("arch_ecm_approval")} color="#3b82f6" />
-        <Curve x1={250} y1={155} x2={250} y2={190} />
+        <Arrow x1={245} y1={105} x2={245} y2={140} green />
+        <Arrow x1={250} y1={190} x2={250} y2={225} />
       </svg>
     ),
 
-    k8s: (
-      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+    // HK Business Registry: Frontend + FileNet
+    hk: (
+      <svg viewBox="0 0 500 260" className="w-full h-auto" style={{ maxWidth: "560px" }}>
         {defs}
-        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="40" y="25" width="420" height="250" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="48" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_k8s_title")}</text>
+        <rect x="0" y="0" width="500" height="260" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="220" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_hk_title")}</text>
 
-        <Node x={175} y={65} w={150} h={40} label={t("arch_k8s_control")} color="#10b981" />
+        <Node x={60} y={80} w={160} h={55} label={t("arch_hk_frontend")} sub={t("arch_hk_frontend_sub")} color="#10b981" />
+        <Node x={280} y={80} w={160} h={55} label={t("arch_hk_filenet")} sub={t("arch_hk_filenet_sub")} color="#3b82f6" />
 
-        <Node x={50} y={140} w={110} h={50} label={`${t("arch_k8s_node")} 1`} sub={t("arch_k8s_pods")} color="#3b82f6" />
-        <Node x={195} y={140} w={110} h={50} label={`${t("arch_k8s_node")} 2`} sub={t("arch_k8s_pods")} color="#3b82f6" />
-        <Node x={340} y={140} w={110} h={50} label={`${t("arch_k8s_node")} 3`} sub={t("arch_k8s_pods")} color="#3b82f6" />
+        <Bidir x1={220} y1={107} x2={280} y2={107} />
 
-        <Curve x1={210} y1={105} x2={105} y2={140} green />
-        <Curve x1={250} y1={105} x2={250} y2={140} green />
-        <Curve x1={290} y1={105} x2={395} y2={140} green />
-
-        <Node x={100} y={225} w={300} h={35} label={t("arch_k8s_mesh")} color="#3b82f6" />
-        <Curve x1={105} y1={190} x2={170} y2={225} />
-        <Curve x1={250} y1={190} x2={250} y2={225} />
-        <Curve x1={395} y1={190} x2={330} y2={225} />
+        <Node x={120} y={175} w={260} h={40} label="Maven + Chrome DevTools" color="#64748b" />
+        <Arrow x1={140} y1={135} x2={180} y2={175} />
+        <Arrow x1={360} y1={135} x2={320} y2={175} />
       </svg>
     ),
 
-    mq: (
+    // BMW: Data Source → Spark → Model → Tableau
+    bmw: (
       <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
         {defs}
         <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="40" y="25" width="420" height="250" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="48" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_mq_title")}</text>
+        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_bmw_title")}</text>
 
-        <Node x={50} y={90} w={90} h={40} label={`${t("arch_mq_producer")} 1`} color="#3b82f6" />
-        <Node x={50} y={150} w={90} h={40} label={`${t("arch_mq_producer")} 2`} color="#3b82f6" />
+        <Node x={30} y={75} w={100} h={55} label={t("arch_bmw_source")} sub={t("arch_bmw_source_sub")} color="#3b82f6" />
+        <Node x={165} y={75} w={100} h={55} label={t("arch_bmw_spark")} color="#10b981" />
+        <Node x={300} y={75} w={100} h={55} label={t("arch_bmw_model")} sub={t("arch_bmw_model_sub")} color="#10b981" />
 
-        <Node x={200} y={105} w={110} h={55} label={t("arch_mq_cluster")} sub={t("arch_mq_ha")} color="#10b981" />
+        <Arrow x1={130} y1={102} x2={165} y2={102} green />
+        <Arrow x1={265} y1={102} x2={300} y2={102} />
 
-        <Node x={360} y={90} w={90} h={40} label={`${t("arch_mq_consumer")} 1`} color="#3b82f6" />
-        <Node x={360} y={150} w={90} h={40} label={`${t("arch_mq_consumer")} 2`} color="#3b82f6" />
+        <Node x={165} y={175} w={170} h={50} label={t("arch_bmw_tableau")} color="#3b82f6" />
+        <Arrow x1={350} y1={130} x2={300} y2={175} />
 
-        <Curve x1={140} y1={110} x2={200} y2={125} green />
-        <Curve x1={140} y1={170} x2={200} y2={140} green />
-        <Curve x1={310} y1={125} x2={360} y2={110} />
-        <Curve x1={310} y1={140} x2={360} y2={170} />
+        <Node x={30} y={175} w={100} h={40} label="Hadoop HDFS" color="#64748b" />
+        <Node x={30} y={235} w={100} h={40} label="Airflow ETL" color="#64748b" />
+      </svg>
+    ),
+
+    // Bond: User → CAS/LDAP → FileNet → Lifecycle
+    bond: (
+      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+        {defs}
+        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_bond_title")}</text>
+
+        <Node x={30} y={90} w={90} h={50} label={t("arch_bond_user")} color="#3b82f6" />
+        <Node x={165} y={90} w={130} h={50} label={t("arch_bond_cas")} sub={t("arch_bond_cas_sub")} color="#10b981" />
+        <Node x={340} y={90} w={120} h={50} label={t("arch_bond_filenet")} sub={t("arch_bond_filenet_sub")} color="#3b82f6" />
+
+        <Arrow x1={120} y1={115} x2={165} y2={115} green />
+        <Arrow x1={295} y1={115} x2={340} y2={115} />
+
+        <Node x={130} y={200} w={240} h={50} label={t("arch_bond_lifecycle")} sub={t("arch_bond_lifecycle_sub")} color="#10b981" />
+        <Arrow x1={400} y1={140} x2={350} y2={200} />
+
+        <Node x={380} y={200} w={90} h={40} label="Oracle DB" color="#64748b" />
+        <Arrow x1={370} y1={225} x2={380} y2={215} />
       </svg>
     ),
   };

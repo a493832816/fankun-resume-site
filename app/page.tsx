@@ -11,10 +11,7 @@ function useFadeIn() {
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("visible");
-          obs.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }
       }),
       { threshold: 0.1 }
     );
@@ -50,9 +47,7 @@ const Section = ({ id, title, children }: { id: string; title: string; children:
 );
 
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`bg-bg-card border border-border rounded-xl p-6 mb-6 fade-in card-hover ${className}`}>
-    {children}
-  </div>
+  <div className={`bg-bg-card border border-border rounded-xl p-6 mb-6 fade-in card-hover ${className}`}>{children}</div>
 );
 
 const SkillRow = ({ label, value, color }: { label: string; value: number; color: "accent" | "accent-secondary" }) => {
@@ -75,13 +70,13 @@ export default function Home() {
   useSkillBars();
   const { t, language } = useI18n();
 
-  const skills = [
-    { name: t("radar_pm"), value: 95 },
-    { name: t("radar_arch"), value: 90 },
-    { name: t("radar_integration"), value: 92 },
-    { name: t("radar_requirement"), value: 88 },
-    { name: t("radar_leadership"), value: 90 },
-    { name: t("radar_agile"), value: 85 },
+  const radarSkills = [
+    { name: t("radar_sysops"), value: 92 },
+    { name: t("radar_middleware"), value: 90 },
+    { name: t("radar_monitoring"), value: 88 },
+    { name: t("radar_container"), value: 85 },
+    { name: t("radar_automation"), value: 87 },
+    { name: t("radar_dev"), value: 86 },
   ];
 
   const workHistory = [
@@ -90,38 +85,15 @@ export default function Home() {
     { year: t("work3_year"), title: t("work3_title"), company: t("work3_company"), description: t("work3_desc") },
   ];
 
-  const projects = [
-    {
-      name: t("proj_ipaas_name"), org: t("proj_ipaas_org"), period: t("proj_ipaas_period"),
-      results: [t("proj_ipaas_r1"), t("proj_ipaas_r2"), t("proj_ipaas_r3"), t("proj_ipaas_r4")],
-      tags: ["iPaaS", "IBM MQ", "API Connect", language === "zh" ? "金融" : "Finance"],
-    },
-    {
-      name: t("proj_bigdata_name"), org: t("proj_bigdata_org"), period: t("proj_bigdata_period"),
-      results: [t("proj_bigdata_r1"), t("proj_bigdata_r2"), t("proj_bigdata_r3"), t("proj_bigdata_r4")],
-      tags: [language === "zh" ? "大数据" : "Big Data", language === "zh" ? "数据治理" : "Data Governance", language === "zh" ? "政府" : "Gov"],
-    },
-    {
-      name: t("proj_ecm_name"), org: t("proj_ecm_org"), period: t("proj_ecm_period"),
-      results: [t("proj_ecm_r1"), t("proj_ecm_r2"), t("proj_ecm_r3"), t("proj_ecm_r4")],
-      tags: ["ECM", language === "zh" ? "文档管理" : "Doc Mgmt", language === "zh" ? "企业" : "Enterprise"],
-    },
-    {
-      name: t("proj_k8s_name"), org: t("proj_k8s_org"), period: t("proj_k8s_period"),
-      results: [t("proj_k8s_r1"), t("proj_k8s_r2"), t("proj_k8s_r3"), t("proj_k8s_r4")],
-      tags: ["Kubernetes", "Docker", language === "zh" ? "云原生" : "Cloud Native"],
-    },
-    {
-      name: t("proj_mq_name"), org: t("proj_mq_org"), period: t("proj_mq_period"),
-      results: [t("proj_mq_r1"), t("proj_mq_r2"), t("proj_mq_r3"), t("proj_mq_r4")],
-      tags: ["IBM MQ", language === "zh" ? "高可用" : "HA", language === "zh" ? "中间件" : "Middleware"],
-    },
-  ];
+  const projects = [1, 2, 3, 4, 5, 6].map((i) => ({
+    name: t(`proj${i}_name`), org: t(`proj${i}_org`), period: t(`proj${i}_period`), role: t(`proj${i}_role`),
+    results: [t(`proj${i}_r1`), t(`proj${i}_r2`), t(`proj${i}_r3`), t(`proj${i}_r4`)],
+    tags: t(`proj${i}_tags`).split(","),
+  }));
 
   const certifications = [
-    { name: t("cert_pmp"), title: t("cert_pmp_title"), issuer: t("cert_pmp_issuer") },
-    { name: t("cert_mq"), title: t("cert_mq_title"), issuer: t("cert_mq_issuer") },
-    { name: t("cert_cka"), title: t("cert_cka_title"), issuer: t("cert_cka_issuer") },
+    { name: t("cert_filenet"), desc: t("cert_filenet_title") },
+    { name: t("cert_was"), desc: t("cert_was_title") },
   ];
 
   return (
@@ -133,36 +105,30 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight font-[family-name:var(--font-heading)]">
             {language === "zh" ? "范坤" : "Frank Fan"}
           </h1>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-text-secondary">
-            {t("role_en")}
-          </h2>
-          <p className="text-text-secondary text-lg md:text-xl leading-relaxed max-w-3xl mb-8">
-            {t("hero_intro")}
-          </p>
-          <div className="flex flex-wrap gap-4 text-sm text-text-dim">
-            <a href="mailto:frank@hk-it.hk" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
-            <a href="https://x.com/frank4938" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">𝕏 {t("twitter")}</a>
-            <a href="https://frank4938.feishu.cn" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">🐦 {t("feishu")}</a>
+          <p className="text-text-secondary text-lg md:text-xl leading-relaxed max-w-3xl mb-8">{t("hero_intro")}</p>
+          <div className="flex flex-wrap gap-6 text-sm text-text-dim">
+            <a href="mailto:493832816@qq.com" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
+            <span className="hover:text-accent transition-colors">📱 {t("phone")}</span>
           </div>
         </div>
 
-        {/* Stats - 2x2 grid */}
-        <div className="mt-16 grid grid-cols-2 gap-6 fade-in max-w-2xl">
+        {/* Stats */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 fade-in">
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={10} suffix="+" />
+            <Counter target={11} suffix="+" />
             <div className="text-text-dim text-sm mt-2">{t("years_experience")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={50} suffix="+" />
-            <div className="text-text-dim text-sm mt-2">{t("max_budget")} (USD)</div>
+            <Counter target={6} suffix="" />
+            <div className="text-text-dim text-sm mt-2">{t("projects_count")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={15} suffix="+" />
-            <div className="text-text-dim text-sm mt-2">{t("efficiency_improve")} %</div>
+            <Counter target={15} suffix="万+" />
+            <div className="text-text-dim text-sm mt-2">{t("daily_messages")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={100} suffix="%" />
-            <div className="text-text-dim text-sm mt-2">{t("no_delay")}</div>
+            <Counter target={99} suffix=".999%" />
+            <div className="text-text-dim text-sm mt-2">{t("reliability")}</div>
           </div>
         </div>
       </header>
@@ -171,26 +137,31 @@ export default function Home() {
       <Section id="skills" title={t("skills")}>
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_management")}</h3>
+            <h3 className="text-xl font-bold mb-4 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_ops")}</h3>
             <Card>
               <div className="space-y-3">
-                <SkillRow label={t("skill_pmp")} value={95} color="accent" />
-                <SkillRow label={t("skill_risk")} value={92} color="accent" />
-                <SkillRow label={t("skill_budget")} value={90} color="accent" />
+                <SkillRow label={t("skill_linux")} value={95} color="accent" />
+                <SkillRow label={t("skill_network")} value={88} color="accent" />
+                <SkillRow label={t("skill_shell")} value={92} color="accent" />
+                <SkillRow label={t("skill_mq")} value={90} color="accent" />
+                <SkillRow label={t("skill_db")} value={87} color="accent" />
+                <SkillRow label={t("skill_search")} value={82} color="accent" />
               </div>
             </Card>
 
-            <h3 className="text-xl font-bold mb-4 mt-8 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_architecture")}</h3>
+            <h3 className="text-xl font-bold mb-4 mt-8 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_dev")}</h3>
             <Card>
               <div className="space-y-3">
-                <SkillRow label={t("skill_ibm")} value={90} color="accent-secondary" />
-                <SkillRow label={t("skill_k8s")} value={88} color="accent-secondary" />
-                <SkillRow label={t("skill_integration")} value={85} color="accent-secondary" />
+                <SkillRow label={t("skill_prometheus")} value={90} color="accent-secondary" />
+                <SkillRow label={t("skill_elk")} value={88} color="accent-secondary" />
+                <SkillRow label={t("skill_docker")} value={87} color="accent-secondary" />
+                <SkillRow label={t("skill_jenkins")} value={85} color="accent-secondary" />
+                <SkillRow label={t("skill_ansible")} value={83} color="accent-secondary" />
               </div>
             </Card>
           </div>
           <div className="flex justify-center">
-            <SkillRadarChart skills={skills} />
+            <SkillRadarChart skills={radarSkills} />
           </div>
         </div>
       </Section>
@@ -209,6 +180,7 @@ export default function Home() {
             <Link key={project.name} href="/projects" className="block">
               <div className="bg-bg-card border border-border rounded-xl p-6 hover:border-accent/50 transition-all duration-300 h-full card-hover">
                 <h3 className="font-semibold text-lg mb-1">{project.name}</h3>
+                <div className="text-xs text-accent mb-2">{project.role}</div>
                 <div className="flex flex-wrap gap-2 text-xs text-text-dim mb-3">
                   <span>{project.org}</span><span>·</span><span>{project.period}</span>
                 </div>
@@ -221,16 +193,14 @@ export default function Home() {
                 </ul>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full">{tag}</span>
+                    <span key={tag} className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full">{tag.trim()}</span>
                   ))}
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        <Link href="/projects" className="inline-block mt-8 text-accent text-sm hover:underline">
-          {t("project_full")}
-        </Link>
+        <Link href="/projects" className="inline-block mt-8 text-accent text-sm hover:underline">{t("project_full")}</Link>
       </Section>
 
       {/* Education & Certifications */}
@@ -239,19 +209,16 @@ export default function Home() {
           <Card>
             <h3 className="font-semibold text-lg mb-1">{t("edu_school")}</h3>
             <p className="text-text-secondary text-sm">{t("edu_major")}</p>
-            <p className="text-text-dim text-sm mt-1">{t("edu_period")}</p>
           </Card>
-
           <Card>
-            <h3 className="font-semibold text-lg mb-4">{t("skills")}</h3>
-            <div className="space-y-2">
+            <h3 className="font-semibold text-lg mb-4">{language === "zh" ? "认证" : "Certifications"}</h3>
+            <div className="space-y-3">
               {certifications.map((cert) => (
                 <div key={cert.name} className="text-text-secondary flex items-start gap-2">
-                  <span className="text-accent mt-0.5">✓</span>
+                  <span className="text-accent-secondary mt-0.5">✓</span>
                   <div>
-                    <div>{cert.name}</div>
-                    <div className="text-text-dim text-sm">{cert.title}</div>
-                    <div className="text-text-dim text-xs">{cert.issuer}</div>
+                    <div className="font-medium">{cert.name}</div>
+                    <div className="text-text-dim text-sm">{cert.desc}</div>
                   </div>
                 </div>
               ))}
