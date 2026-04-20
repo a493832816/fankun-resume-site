@@ -7,6 +7,8 @@ const projectConfigs = [
   { id: "1", archType: "hk" },
   { id: "2", archType: "hospital" },
   { id: "3", archType: "bmw" },
+  { id: "4", archType: "gac" },
+  { id: "5", archType: "bond" },
 ] as const;
 
 export default function ProjectsPage() {

@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 
-type ArchType = "hospital" | "hk" | "bmw";
+type ArchType = "hospital" | "hk" | "bmw" | "gac" | "bond";
 
 interface ArchitectureDiagramProps {
   type: ArchType;
@@ -137,6 +137,50 @@ export default function ArchitectureDiagram({ type, className = "" }: Architectu
 
         <Node x={30} y={175} w={100} h={40} label="Hadoop HDFS" color="#64748b" />
         <Node x={30} y={235} w={100} h={40} label="Airflow ETL" color="#64748b" />
+      </svg>
+    ),
+
+    // GAC Honda: ESB → APISIX → K8s → Monitoring
+    gac: (
+      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+        {defs}
+        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_gac_title")}</text>
+
+        <Node x={30} y={75} w={100} h={50} label={t("arch_gac_esb")} color="#64748b" />
+        <Node x={175} y={75} w={150} h={50} label={t("arch_gac_apisix")} sub={t("arch_gac_apisix_sub")} color="#10b981" />
+        <Node x={370} y={75} w={100} h={50} label={t("arch_gac_k8s")} sub={t("arch_gac_k8s_sub")} color="#3b82f6" />
+
+        <Arrow x1={130} y1={100} x2={175} y2={100} green />
+        <Arrow x1={325} y1={100} x2={370} y2={100} />
+
+        <Node x={140} y={180} w={220} h={50} label={t("arch_gac_monitor")} sub={t("arch_gac_monitor_sub")} color="#10b981" />
+        <Arrow x1={250} y1={125} x2={250} y2={180} />
+
+        <Node x={30} y={180} w={80} h={40} label="Jenkins" color="#64748b" />
+        <Node x={390} y={180} w={80} h={40} label="Redis" color="#64748b" />
+      </svg>
+    ),
+
+    // ChinaBond: Users → CAS/LDAP → FileNet → Lifecycle
+    bond: (
+      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+        {defs}
+        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_bond_title")}</text>
+
+        <Node x={30} y={80} w={100} h={50} label={t("arch_bond_user")} color="#3b82f6" />
+        <Node x={175} y={80} w={150} h={50} label={t("arch_bond_cas")} sub={t("arch_bond_cas_sub")} color="#10b981" />
+
+        <Arrow x1={130} y1={105} x2={175} y2={105} green />
+
+        <Node x={370} y={80} w={100} h={50} label={t("arch_bond_filenet")} sub={t("arch_bond_filenet_sub")} color="#3b82f6" />
+        <Arrow x1={325} y1={105} x2={370} y2={105} />
+
+        <Node x={120} y={190} w={260} h={45} label={t("arch_bond_db")} color="#64748b" />
+        <Arrow x1={250} y1={130} x2={250} y2={190} />
       </svg>
     ),
   };

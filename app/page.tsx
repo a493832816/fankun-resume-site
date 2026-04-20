@@ -85,7 +85,7 @@ export default function Home() {
     { year: t("work3_year"), title: t("work3_title"), company: t("work3_company"), description: t("work3_desc") },
   ];
 
-  const projects = [1, 2, 3].map((i) => ({
+  const projects = [1, 2, 3, 4, 5].map((i) => ({
     name: t(`proj${i}_name`), org: t(`proj${i}_org`), period: t(`proj${i}_period`), role: t(`proj${i}_role`),
     team: t(`proj${i}_team`), budget: t(`proj${i}_budget`), method: t(`proj${i}_method`),
     results: [t(`proj${i}_r1`), t(`proj${i}_r2`), t(`proj${i}_r3`), t(`proj${i}_r4`)],
