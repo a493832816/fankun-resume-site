@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 个人简历网站
 
-## Getting Started
+中英双语个人简历网站，基于 Next.js 构建。
 
-First, run the development server:
+## 技术栈
+
+- **框架**: Next.js 16 (App Router)
+- **样式**: Tailwind CSS 4
+- **语言**: TypeScript
+- **部署**: Vercel
+
+## 功能
+
+- 🌐 中英双语切换（导航栏按钮一键切换）
+- 📊 技能进度条（带入场动画）
+- 📅 工作经历时间线
+- 🏗️ 项目架构图（纯 SVG）
+- 📈 行业趋势分析（SVG 折线图）
+- 🌙 深色主题（#0a0a0f + #00e5a0 accent）
+
+## 页面
+
+| 路由 | 说明 |
+|------|------|
+| `/` | 简历首页 — Hero、技能、经历、教育、认证 |
+| `/projects` | 项目经验 — 架构图 + 技术栈 |
+| `/analysis` | 行业分析 — 趋势图 + 洞察 |
+
+## 本地开发
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 构建
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm build
+```
