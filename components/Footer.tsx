@@ -13,8 +13,9 @@ export default function Footer() {
           © {currentYear} {language === "zh" ? "范坤" : "Frank Fan"}. All rights reserved.
         </div>
         <div className="flex gap-6 text-sm text-text-dim">
-          <a href="mailto:493832816@qq.com" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
-          <span className="hover:text-accent transition-colors">📱 {t("phone")}</span>
+          <a href="mailto:frank@hk-it.hk" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
+          <a href="https://x.com/frank4938" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">𝕏 {t("twitter")}</a>
+          <a href="https://frank4938.feishu.cn" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">🐦 {t("feishu")}</a>
         </div>
       </div>
     </footer>

@@ -107,8 +107,9 @@ export default function Home() {
           </h1>
           <p className="text-text-secondary text-lg md:text-xl leading-relaxed max-w-3xl mb-8">{t("hero_intro")}</p>
           <div className="flex flex-wrap gap-6 text-sm text-text-dim">
-            <a href="mailto:493832816@qq.com" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
-            <span className="hover:text-accent transition-colors">📱 {t("phone")}</span>
+            <a href="mailto:frank@hk-it.hk" className="hover:text-accent transition-colors">✉️ {t("email")}</a>
+            <a href="https://x.com/frank4938" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">𝕏 {t("twitter")}</a>
+            <a href="https://frank4938.feishu.cn" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">🐦 {t("feishu")}</a>
           </div>
         </div>
 

@@ -18,8 +18,9 @@ const translations: Translation = {
     role_zh: "运维开发工程师 / 核心开发工程师",
     role_en: "DevOps Engineer / Core Developer",
     hero_intro: "11 年企业级系统开发与运维经验，兼具开发能力和运维实战，擅长系统架构、中间件调优、监控体系建设与自动化运维工具开发。长期负责高可用消息中间件集群运维，具备扎实的 Linux 系统排障能力和丰富的生产环境故障处理经验。",
-    email: "493832816@qq.com",
-    phone: "15007117910",
+    email: "frank@hk-it.hk",
+    twitter: "@frank4938",
+    feishu: "飞书",
 
     // Counters
     years_experience: "年 IT 经验",
@@ -286,7 +287,6 @@ const translations: Translation = {
     // Footer
     footer_contact: "联系方式",
     footer_email: "邮箱",
-    footer_phone: "手机",
   },
   en: {
     // Nav
@@ -299,8 +299,9 @@ const translations: Translation = {
     role_zh: "DevOps Engineer / Core Developer",
     role_en: "DevOps Engineer / Core Developer",
     hero_intro: "11 years of enterprise system development and operations experience. Skilled in system architecture, middleware tuning, monitoring infrastructure, and automation tooling. Extensive experience with high-availability message middleware clusters and solid Linux troubleshooting capabilities.",
-    email: "493832816@qq.com",
-    phone: "15007117910",
+    email: "frank@hk-it.hk",
+    twitter: "@frank4938",
+    feishu: "Feishu",
 
     // Counters
     years_experience: "Years IT Experience",
@@ -562,7 +563,6 @@ const translations: Translation = {
     // Footer
     footer_contact: "Contact",
     footer_email: "Email",
-    footer_phone: "Phone",
   },
 };
 
