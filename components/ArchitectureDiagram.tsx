@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 
-type ArchType = "hospital" | "exam" | "gac" | "hk" | "bmw" | "bond";
+type ArchType = "hospital" | "hk" | "bmw";
 
 interface ArchitectureDiagramProps {
   type: ArchType;
@@ -73,71 +73,6 @@ export default function ArchitectureDiagram({ type, className = "" }: Architectu
   };
 
   const diagrams: Record<ArchType, React.ReactNode> = {
-    // Hospital iPaaS: HIS/LIS/PACS/EMR → ACE → MQ
-    hospital: (
-      <svg viewBox="0 0 500 320" className="w-full h-auto" style={{ maxWidth: "560px" }}>
-        {defs}
-        <rect x="0" y="0" width="500" height="320" fill="#0c0c14" rx="12" />
-        <rect x="30" y="20" width="440" height="280" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_hospital_title")}</text>
-
-        {/* Source systems */}
-        <Node x={30} y={65} w={85} h={38} label={t("arch_hospital_his")} color="#3b82f6" />
-        <Node x={135} y={65} w={85} h={38} label={t("arch_hospital_lis")} color="#3b82f6" />
-        <Node x={240} y={65} w={85} h={38} label={t("arch_hospital_pacs")} color="#3b82f6" />
-        <Node x={345} y={65} w={85} h={38} label={t("arch_hospital_emr")} color="#3b82f6" />
-
-        {/* ACE Integration Engine */}
-        <Node x={100} y={150} w={300} h={50} label={t("arch_hospital_ace")} sub={t("arch_hospital_ace_sub")} color="#10b981" />
-
-        {/* Arrows from systems to ACE */}
-        <Arrow x1={72} y1={103} x2={160} y2={150} green />
-        <Arrow x1={177} y1={103} x2={210} y2={150} green />
-        <Arrow x1={282} y1={103} x2={290} y2={150} green />
-        <Arrow x1={387} y1={103} x2={380} y2={150} green />
-
-        {/* MQ Message Bus */}
-        <Node x={100} y={240} w={300} h={45} label={t("arch_hospital_mq")} sub={t("arch_hospital_mq_sub")} color="#3b82f6" />
-        <Arrow x1={250} y1={200} x2={250} y2={240} />
-      </svg>
-    ),
-
-    // Exam System Flow: HIS ↔ Exam ↔ LIS ↔ PACS
-    exam: (
-      <svg viewBox="0 0 500 250" className="w-full h-auto" style={{ maxWidth: "560px" }}>
-        {defs}
-        <rect x="0" y="0" width="500" height="250" fill="#0c0c14" rx="12" />
-        <rect x="30" y="20" width="440" height="210" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_exam_title")}</text>
-
-        <Node x={30} y={100} w={90} h={50} label={t("arch_exam_his")} color="#3b82f6" />
-        <Node x={155} y={100} w={90} h={50} label={t("arch_exam_exam")} color="#10b981" />
-        <Node x={280} y={100} w={90} h={50} label={t("arch_exam_lis")} color="#3b82f6" />
-        <Node x={395} y={100} w={70} h={50} label={t("arch_exam_pacs")} color="#3b82f6" />
-
-        <Bidir x1={120} y1={125} x2={155} y2={125} />
-        <Bidir x1={245} y1={125} x2={280} y2={125} />
-        <Bidir x1={370} y1={125} x2={395} y2={125} />
-      </svg>
-    ),
-
-    // GAC Honda: ESB → APISIX → K8s
-    gac: (
-      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
-        {defs}
-        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_gac_title")}</text>
-
-        <Node x={180} y={65} w={130} h={40} label={t("arch_gac_esb")} color="#64748b" />
-        <Node x={130} y={140} w={240} h={50} label={t("arch_gac_apisix")} sub={t("arch_gac_apisix_sub")} color="#10b981" />
-        <Node x={100} y={225} w={300} h={45} label={t("arch_gac_k8s")} sub={t("arch_gac_k8s_sub")} color="#3b82f6" />
-
-        <Arrow x1={245} y1={105} x2={245} y2={140} green />
-        <Arrow x1={250} y1={190} x2={250} y2={225} />
-      </svg>
-    ),
-
     // HK Business Registry: Frontend + FileNet
     hk: (
       <svg viewBox="0 0 500 260" className="w-full h-auto" style={{ maxWidth: "560px" }}>
@@ -154,6 +89,31 @@ export default function ArchitectureDiagram({ type, className = "" }: Architectu
         <Node x={120} y={175} w={260} h={40} label="Maven + Chrome DevTools" color="#64748b" />
         <Arrow x1={140} y1={135} x2={180} y2={175} />
         <Arrow x1={360} y1={135} x2={320} y2={175} />
+      </svg>
+    ),
+
+    // Hospital iPaaS: HIS/LIS/PACS/EMR → ACE → MQ
+    hospital: (
+      <svg viewBox="0 0 500 320" className="w-full h-auto" style={{ maxWidth: "560px" }}>
+        {defs}
+        <rect x="0" y="0" width="500" height="320" fill="#0c0c14" rx="12" />
+        <rect x="30" y="20" width="440" height="280" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
+        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_hospital_title")}</text>
+
+        <Node x={30} y={65} w={85} h={38} label={t("arch_hospital_his")} color="#3b82f6" />
+        <Node x={135} y={65} w={85} h={38} label={t("arch_hospital_lis")} color="#3b82f6" />
+        <Node x={240} y={65} w={85} h={38} label={t("arch_hospital_pacs")} color="#3b82f6" />
+        <Node x={345} y={65} w={85} h={38} label={t("arch_hospital_emr")} color="#3b82f6" />
+
+        <Node x={100} y={150} w={300} h={50} label={t("arch_hospital_ace")} sub={t("arch_hospital_ace_sub")} color="#10b981" />
+
+        <Arrow x1={72} y1={103} x2={160} y2={150} green />
+        <Arrow x1={177} y1={103} x2={210} y2={150} green />
+        <Arrow x1={282} y1={103} x2={290} y2={150} green />
+        <Arrow x1={387} y1={103} x2={380} y2={150} green />
+
+        <Node x={100} y={240} w={300} h={45} label={t("arch_hospital_mq")} sub={t("arch_hospital_mq_sub")} color="#3b82f6" />
+        <Arrow x1={250} y1={200} x2={250} y2={240} />
       </svg>
     ),
 
@@ -177,29 +137,6 @@ export default function ArchitectureDiagram({ type, className = "" }: Architectu
 
         <Node x={30} y={175} w={100} h={40} label="Hadoop HDFS" color="#64748b" />
         <Node x={30} y={235} w={100} h={40} label="Airflow ETL" color="#64748b" />
-      </svg>
-    ),
-
-    // Bond: User → CAS/LDAP → FileNet → Lifecycle
-    bond: (
-      <svg viewBox="0 0 500 300" className="w-full h-auto" style={{ maxWidth: "560px" }}>
-        {defs}
-        <rect x="0" y="0" width="500" height="300" fill="#0c0c14" rx="12" />
-        <rect x="30" y="20" width="440" height="260" fill="none" stroke="#1e293b" strokeWidth="1" rx="8" strokeDasharray="4 4" />
-        <text x="250" y="45" textAnchor="middle" fill="#10b981" fontSize="14" fontWeight="bold" filter="url(#greenGlow)">{t("arch_bond_title")}</text>
-
-        <Node x={30} y={90} w={90} h={50} label={t("arch_bond_user")} color="#3b82f6" />
-        <Node x={165} y={90} w={130} h={50} label={t("arch_bond_cas")} sub={t("arch_bond_cas_sub")} color="#10b981" />
-        <Node x={340} y={90} w={120} h={50} label={t("arch_bond_filenet")} sub={t("arch_bond_filenet_sub")} color="#3b82f6" />
-
-        <Arrow x1={120} y1={115} x2={165} y2={115} green />
-        <Arrow x1={295} y1={115} x2={340} y2={115} />
-
-        <Node x={130} y={200} w={240} h={50} label={t("arch_bond_lifecycle")} sub={t("arch_bond_lifecycle_sub")} color="#10b981" />
-        <Arrow x1={400} y1={140} x2={350} y2={200} />
-
-        <Node x={380} y={200} w={90} h={40} label="Oracle DB" color="#64748b" />
-        <Arrow x1={370} y1={225} x2={380} y2={215} />
       </svg>
     ),
   };

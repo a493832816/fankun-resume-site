@@ -71,12 +71,12 @@ export default function Home() {
   const { t, language } = useI18n();
 
   const radarSkills = [
-    { name: t("radar_sysops"), value: 92 },
-    { name: t("radar_middleware"), value: 90 },
-    { name: t("radar_monitoring"), value: 88 },
-    { name: t("radar_container"), value: 85 },
-    { name: t("radar_automation"), value: 87 },
-    { name: t("radar_dev"), value: 86 },
+    { name: t("radar_pm"), value: 92 },
+    { name: t("radar_req"), value: 90 },
+    { name: t("radar_arch"), value: 85 },
+    { name: t("radar_lead"), value: 88 },
+    { name: t("radar_risk"), value: 87 },
+    { name: t("radar_cross"), value: 90 },
   ];
 
   const workHistory = [
@@ -85,13 +85,15 @@ export default function Home() {
     { year: t("work3_year"), title: t("work3_title"), company: t("work3_company"), description: t("work3_desc") },
   ];
 
-  const projects = [1, 2, 3, 4, 5, 6].map((i) => ({
+  const projects = [1, 2, 3].map((i) => ({
     name: t(`proj${i}_name`), org: t(`proj${i}_org`), period: t(`proj${i}_period`), role: t(`proj${i}_role`),
+    team: t(`proj${i}_team`), budget: t(`proj${i}_budget`), method: t(`proj${i}_method`),
     results: [t(`proj${i}_r1`), t(`proj${i}_r2`), t(`proj${i}_r3`), t(`proj${i}_r4`)],
     tags: t(`proj${i}_tags`).split(","),
   }));
 
   const certifications = [
+    { name: t("cert_pmp"), desc: t("cert_pmp_title") },
     { name: t("cert_filenet"), desc: t("cert_filenet_title") },
     { name: t("cert_was"), desc: t("cert_was_title") },
   ];
@@ -116,20 +118,20 @@ export default function Home() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 fade-in">
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={11} suffix="+" />
+            <Counter target={5} suffix="+" />
             <div className="text-text-dim text-sm mt-2">{t("years_experience")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={6} suffix="" />
-            <div className="text-text-dim text-sm mt-2">{t("projects_count")}</div>
+            <Counter target={1000} suffix="万+" />
+            <div className="text-text-dim text-sm mt-2">{t("max_budget")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={15} suffix="万+" />
-            <div className="text-text-dim text-sm mt-2">{t("daily_messages")}</div>
+            <Counter target={20} suffix="+" />
+            <div className="text-text-dim text-sm mt-2">{t("team_size")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={99} suffix=".999%" />
-            <div className="text-text-dim text-sm mt-2">{t("reliability")}</div>
+            <Counter target={0} suffix="延期" />
+            <div className="text-text-dim text-sm mt-2">{language === "zh" ? "零" : "Zero"}</div>
           </div>
         </div>
       </header>
@@ -138,26 +140,34 @@ export default function Home() {
       <Section id="skills" title={t("skills")}>
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_ops")}</h3>
+            <h3 className="text-xl font-bold mb-4 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_ai")}</h3>
             <Card>
               <div className="space-y-3">
-                <SkillRow label={t("skill_linux")} value={95} color="accent" />
-                <SkillRow label={t("skill_network")} value={88} color="accent" />
-                <SkillRow label={t("skill_shell")} value={92} color="accent" />
-                <SkillRow label={t("skill_mq")} value={90} color="accent" />
-                <SkillRow label={t("skill_db")} value={87} color="accent" />
-                <SkillRow label={t("skill_search")} value={82} color="accent" />
+                <SkillRow label={t("skill_ai_llm")} value={85} color="accent" />
+                <SkillRow label={t("skill_ai_poc")} value={88} color="accent" />
+                <SkillRow label={t("skill_ai_prompt")} value={90} color="accent" />
+                <SkillRow label={t("skill_ai_design")} value={82} color="accent" />
               </div>
             </Card>
 
-            <h3 className="text-xl font-bold mb-4 mt-8 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_dev")}</h3>
+            <h3 className="text-xl font-bold mb-4 mt-8 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_backend")}</h3>
             <Card>
               <div className="space-y-3">
-                <SkillRow label={t("skill_prometheus")} value={90} color="accent-secondary" />
-                <SkillRow label={t("skill_elk")} value={88} color="accent-secondary" />
-                <SkillRow label={t("skill_docker")} value={87} color="accent-secondary" />
-                <SkillRow label={t("skill_jenkins")} value={85} color="accent-secondary" />
-                <SkillRow label={t("skill_ansible")} value={83} color="accent-secondary" />
+                <SkillRow label={t("skill_java")} value={88} color="accent-secondary" />
+                <SkillRow label={t("skill_esql")} value={90} color="accent-secondary" />
+                <SkillRow label={t("skill_ace")} value={87} color="accent-secondary" />
+                <SkillRow label={t("skill_apiconnect")} value={82} color="accent-secondary" />
+              </div>
+            </Card>
+
+            <h3 className="text-xl font-bold mb-4 mt-8 text-text-primary font-[family-name:var(--font-heading)]">{t("skills_data")}</h3>
+            <Card>
+              <div className="space-y-3">
+                <SkillRow label={t("skill_oracle")} value={85} color="accent" />
+                <SkillRow label={t("skill_sqlserver")} value={83} color="accent" />
+                <SkillRow label={t("skill_elk")} value={88} color="accent" />
+                <SkillRow label={t("skill_prometheus")} value={82} color="accent" />
+                <SkillRow label={t("skill_docker")} value={80} color="accent" />
               </div>
             </Card>
           </div>
@@ -184,6 +194,10 @@ export default function Home() {
                 <div className="text-xs text-accent mb-2">{project.role}</div>
                 <div className="flex flex-wrap gap-2 text-xs text-text-dim mb-3">
                   <span>{project.org}</span><span>·</span><span>{project.period}</span>
+                </div>
+                <div className="flex flex-wrap gap-1 text-xs mb-3">
+                  <span className="bg-accent/10 text-accent px-2 py-0.5 rounded">{project.team}</span>
+                  <span className="bg-accent-secondary/10 text-accent-secondary px-2 py-0.5 rounded">{project.budget}</span>
                 </div>
                 <ul className="space-y-1 mb-4">
                   {project.results.map((r) => (

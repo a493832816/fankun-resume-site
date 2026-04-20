@@ -4,12 +4,9 @@ import { useI18n } from "@/lib/i18n";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 
 const projectConfigs = [
-  { id: "1", archType: "hospital" },
-  { id: "2", archType: "exam" },
-  { id: "3", archType: "gac" },
-  { id: "4", archType: "hk" },
-  { id: "5", archType: "bmw" },
-  { id: "6", archType: "bond" },
+  { id: "1", archType: "hk" },
+  { id: "2", archType: "hospital" },
+  { id: "3", archType: "bmw" },
 ] as const;
 
 export default function ProjectsPage() {
@@ -24,7 +21,6 @@ export default function ProjectsPage() {
         {projectConfigs.map(({ id, archType }) => {
           const stackStr = t(`proj${id}_stack`);
           const stack = stackStr.split(",").map((s: string) => s.trim());
-          const solKeys = id === "1" || id === "3" ? [1, 2, 3, 4, 5] : id === "5" ? [1, 2, 3, 4] : [1, 2, 3, 4];
 
           return (
             <div key={id} className="border-b border-border pb-20 last:border-b-0 last:pb-0">
@@ -36,8 +32,11 @@ export default function ProjectsPage() {
                     <span>·</span>
                     <span>{t(`proj${id}_period`)}</span>
                   </div>
-                  <div className="mb-6">
-                    <span className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full mr-2">{t(`proj${id}_role`)}</span>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full">{t(`proj${id}_role`)}</span>
+                    <span className="bg-accent-secondary/10 text-accent-secondary text-xs px-2 py-1 rounded-full">{t(`proj${id}_team`)}</span>
+                    <span className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full">{t(`proj${id}_budget`)}</span>
+                    <span className="bg-accent-secondary/10 text-accent-secondary text-xs px-2 py-1 rounded-full">{t(`proj${id}_method`)}</span>
                   </div>
 
                   {/* Background */}
@@ -46,17 +45,22 @@ export default function ProjectsPage() {
                     <p className="text-text-secondary leading-relaxed">{t(`proj${id}_bg`)}</p>
                   </div>
 
-                  {/* Solution */}
+                  {/* Requirements Analysis */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-bold mb-3 text-text-primary">{t("proj_solution")}</h3>
-                    <ul className="space-y-2">
-                      {solKeys.map((i) => (
-                        <li key={i} className="text-text-secondary text-sm flex items-start gap-2">
-                          <span className="text-accent-secondary mt-1">▸</span>
-                          {t(`proj${id}_sol${i}`)}
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-lg font-bold mb-3 text-text-primary">{t("proj_analysis")}</h3>
+                    <p className="text-text-secondary leading-relaxed">{t(`proj${id}_analysis`)}</p>
+                  </div>
+
+                  {/* Project Management */}
+                  <div className="mb-6">
+                    <h3 className="text-lg font-bold mb-3 text-text-primary">{t("proj_management")}</h3>
+                    <p className="text-text-secondary leading-relaxed">{t(`proj${id}_management`)}</p>
+                  </div>
+
+                  {/* Team Collaboration */}
+                  <div className="mb-6">
+                    <h3 className="text-lg font-bold mb-3 text-text-primary">{t("proj_collaboration")}</h3>
+                    <p className="text-text-secondary leading-relaxed">{t(`proj${id}_collaboration`)}</p>
                   </div>
 
                   {/* Key Results */}

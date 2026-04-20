@@ -70,7 +70,7 @@ export default function AnalysisPage() {
         <div className="grid md:grid-cols-3 gap-6">
           <div>
             <h3 className="font-bold text-accent mb-4 text-lg">{t("analysis_arch_legacy_cloud")}</h3>
-            <ArchitectureDiagram type="gac" />
+            <ArchitectureDiagram type="hk" />
           </div>
           <div>
             <h3 className="font-bold text-accent mb-4 text-lg">{t("analysis_arch_container")}</h3>
@@ -78,7 +78,7 @@ export default function AnalysisPage() {
           </div>
           <div>
             <h3 className="font-bold text-accent mb-4 text-lg">{t("analysis_arch_mono_micro")}</h3>
-            <ArchitectureDiagram type="bond" />
+            <ArchitectureDiagram type="bmw" />
           </div>
         </div>
       </section>
