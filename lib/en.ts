@@ -18,8 +18,6 @@ export const en: Record<string, string> = {
   projects_count: "Core Projects",
   max_budget: "10M+ Max Budget",
   team_size: "Team Size",
-  zero_delay_suffix: " Delays",
-  zero_delay_label: "Zero",
 
   // Skills
   skills: "Professional Skills",
@@ -179,12 +177,12 @@ export const en: Record<string, string> = {
   proj4_r2: "Downtime reduced 90%",
   proj4_r3: "MTTR significantly decreased",
   proj4_r4: "Platform stable for daily operations",
-  proj4_tags: "IBM ACE,MQ,APISIX,Kubernetes",
+  proj4_tags: "IBM ACE,MQ,IBM GATEWAY,Kubernetes",
   proj4_bg: "Legacy ESB platform monolithic architecture bottleneck, lacking traffic governance, manual deployment, and insufficient availability for business growth.",
   proj4_analysis: "Investigated ESB platform pain points, identified three gaps: traffic governance, deployment process, and monitoring; aligned with client tech team on goals and priorities; selected APISIX+K8s containerization approach after evaluating multiple solutions.",
   proj4_management: "Decomposed into three phases: gateway governance, containerization migration, monitoring; established iteration reviews and milestone acceptance; designed rollback plans for business continuity.",
   proj4_collaboration: "Coordinated client ops, dev, and architecture teams; organized technical training and knowledge transfer; established escalation mechanisms.",
-  proj4_stack: "IBM ACE,IBM MQ,APISIX,Kubernetes/OpenShift,Redis,Prometheus,Grafana,Jenkins",
+  proj4_stack: "IBM ACE,IBM MQ,IBM GATEWAY,Kubernetes/OpenShift,Redis,Prometheus,Grafana,Jenkins",
 
   // Project 5: ChinaBond
   proj5_name: "Enterprise Knowledge Base Cloud Platform",
@@ -198,17 +196,17 @@ export const en: Record<string, string> = {
   proj5_r2: "Document search efficiency up 60%",
   proj5_r3: "Met financial compliance requirements",
   proj5_r4: "Established systematic knowledge management",
-  proj5_tags: "IBM FileNet,CAS,LDAP,Oracle",
+  proj5_tags: "IBM FileNet,CAS,LDAP,DB2",
   proj5_bg: "Financial institution's knowledge assets scattered across departments, lacking unified management and search capabilities, with strict financial data compliance and audit requirements.",
   proj5_analysis: "Surveyed knowledge management status across departments; mapped document lifecycle and permission requirements; designed unified knowledge base platform.",
   proj5_management: "Progressed through requirements→design→implementation→testing→launch phases; LoadRunner stress testing for performance validation; established go-live criteria.",
   proj5_collaboration: "Coordinated IT, business, and compliance departments; organized training to promote knowledge base adoption; wrote SOP documentation.",
-  proj5_stack: "IBM FileNet,CAS,LDAP,Active Directory,LoadRunner,Oracle,VMware vSphere",
+  proj5_stack: "IBM FileNet,CAS,LDAP,Active Directory,LoadRunner,DB2,CTyun",
 
   // Architecture labels
   arch_gac_title: "iPaaS Upgrade Architecture",
   arch_gac_esb: "Legacy ESB",
-  arch_gac_apisix: "APISIX Gateway",
+  arch_gac_apisix: "IBM Gateway",
   arch_gac_apisix_sub: "Circuit Break · Rate Limit",
   arch_gac_k8s: "K8s Cluster",
   arch_gac_k8s_sub: "Blue-Green Deploy",
@@ -221,14 +219,14 @@ export const en: Record<string, string> = {
   arch_bond_cas_sub: "Unified Auth",
   arch_bond_filenet: "FileNet Doc Mgmt",
   arch_bond_filenet_sub: "Create→Review→Archive→Destroy",
-  arch_bond_db: "Oracle + vSphere",
+  arch_bond_db: "DB2 + CTyun",
 
   arch_bmw_title: "Store Location Platform",
   arch_bmw_source: "Data Sources",
   arch_bmw_source_sub: "Population · Commercial · Traffic",
   arch_bmw_spark: "Spark Processing",
   arch_bmw_model: "Location Model",
-  arch_bmw_model_sub: "H3 + ML",
+  arch_bmw_model_sub: "H3 + ML"
   arch_bmw_tableau: "Tableau Dashboard",
 
   // Analysis page
