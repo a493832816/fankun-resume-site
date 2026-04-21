@@ -11,7 +11,7 @@ export const zh: Record<string, string> = {
   hero_intro: "资深 IT 项目交付管理，超 5 年系统集成与数字化转型经验，PMP 认证。专注企业级集成解决方案（iPaaS）、内容管理（ECM）、大数据项目交付，擅长全生命周期管理与跨部门协调。曾管理预算超 1000 万的企业级平台项目，领导 10-20 人团队，成功交付多个央企/外企项目。",
   email: "frank@hk-it.hk",
   twitter: "@frank4938",
-  feishu: "飞书",
+  weixin: "A493832816",
 
   // Counters
   years_experience: "年 IT 经验",
@@ -171,7 +171,7 @@ export const zh: Record<string, string> = {
   proj4_period: "2023.07 – 2024.09",
   proj4_role: "IT 项目经理",
   proj4_team: "8–12 人",
-  proj4_budget: "¥500 万",
+  proj4_budget: "¥200 万",
   proj4_method: "敏捷迭代",
   proj4_r1: "集成效率提升 40%",
   proj4_r2: "宕机率降低 90%",
@@ -190,7 +190,7 @@ export const zh: Record<string, string> = {
   proj5_period: "2018.01 – 2021.03",
   proj5_role: "项目经理/实施顾问",
   proj5_team: "6–10 人",
-  proj5_budget: "¥300 万",
+  proj5_budget: "¥150 万",
   proj5_method: "瀑布模型",
   proj5_r1: "平台稳定运行支持 500+ QPS",
   proj5_r2: "文档检索效率提升 60%",

@@ -11,7 +11,7 @@ export const en: Record<string, string> = {
   hero_intro: "Senior IT Project Delivery Manager with 5+ years of experience in system integration and digital transformation. PMP certified. Focused on enterprise iPaaS, ECM, and big data project delivery with full lifecycle management and cross-department coordination. Managed projects with budgets exceeding 10M RMB, leading teams of 10-20 to deliver multiple state-owned enterprise and multinational projects.",
   email: "frank@hk-it.hk",
   twitter: "@frank4938",
-  feishu: "Feishu",
+  weixin: "A493832816",
 
   // Counters
   years_experience: "Years IT Experience",
@@ -171,7 +171,7 @@ export const en: Record<string, string> = {
   proj4_period: "2023.07 – 2024.09",
   proj4_role: "IT Project Manager",
   proj4_team: "8–12 People",
-  proj4_budget: "¥5M",
+  proj4_budget: "¥2M",
   proj4_method: "Agile Iteration",
   proj4_r1: "Integration efficiency up 40%",
   proj4_r2: "Downtime reduced 90%",
@@ -190,7 +190,7 @@ export const en: Record<string, string> = {
   proj5_period: "2018.01 – 2021.03",
   proj5_role: "Project Manager / Implementation Consultant",
   proj5_team: "6–10 People",
-  proj5_budget: "¥3M",
+  proj5_budget: "¥1.5M",
   proj5_method: "Waterfall Model",
   proj5_r1: "Platform stable at 500+ QPS",
   proj5_r2: "Document search efficiency up 60%",
