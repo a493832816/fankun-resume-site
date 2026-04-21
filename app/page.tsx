@@ -130,8 +130,8 @@ export default function Home() {
             <div className="text-text-dim text-sm mt-2">{t("team_size")}</div>
           </div>
           <div className="bg-bg-card border border-border rounded-xl p-6 text-center card-hover">
-            <Counter target={0} suffix="延期" />
-            <div className="text-text-dim text-sm mt-2">{language === "zh" ? "零" : "Zero"}</div>
+            <Counter target={0} suffix={t("zero_delay_suffix")} />
+            <div className="text-text-dim text-sm mt-2">{t("zero_delay_label")}</div>
           </div>
         </div>
       </header>

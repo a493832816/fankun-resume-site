@@ -18,6 +18,8 @@ export const en: Record<string, string> = {
   projects_count: "Core Projects",
   max_budget: "10M+ Max Budget",
   team_size: "Team Size",
+  zero_delay_suffix: " Delays",
+  zero_delay_label: "Zero",
 
   // Skills
   skills: "Professional Skills",
