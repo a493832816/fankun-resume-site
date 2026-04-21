@@ -2,6 +2,7 @@ export const en: Record<string, string> = {
   // Nav
   nav_home: "Home",
   nav_projects: "Projects",
+  nav_portfolio: "Portfolio",
   nav_analysis: "Insights",
 
   // Hero
@@ -279,4 +280,15 @@ export const en: Record<string, string> = {
   // Footer
   footer_contact: "Contact",
   footer_email: "Email",
+
+  // Portfolio
+  portfolio_title: "Portfolio",
+  portfolio_subtitle: "Personal projects & creative works",
+  portfolio_back: "Back to Portfolio",
+  portfolio_not_found: "Work not found",
+  portfolio_type_app: "App",
+  portfolio_type_project: "Code Project",
+  portfolio_xiyouji_title: "Journey to the West Map",
+  portfolio_xiyouji_desc: "Interactive visualization of the Journey to the West map with zoom, drag, location markers and pilgrimage route display.",
+  portfolio_xiyouji_tags: "HTML,CSS,JavaScript,SVG,Map Interaction",
 };

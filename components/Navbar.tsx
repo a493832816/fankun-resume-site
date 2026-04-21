@@ -15,6 +15,7 @@ export default function Navbar() {
   const navItems = [
     { href: "/", labelKey: "nav_home" },
     { href: "/projects", labelKey: "nav_projects" },
+    { href: "/portfolio", labelKey: "nav_portfolio" },
     { href: "/analysis", labelKey: "nav_analysis" },
   ];
 

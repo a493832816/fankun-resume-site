@@ -2,6 +2,7 @@ export const zh: Record<string, string> = {
   // Nav
   nav_home: "首页",
   nav_projects: "项目",
+  nav_portfolio: "作品集",
   nav_analysis: "行业洞察",
 
   // Hero
@@ -279,4 +280,15 @@ export const zh: Record<string, string> = {
   // Footer
   footer_contact: "联系方式",
   footer_email: "邮箱",
+
+  // Portfolio
+  portfolio_title: "作品集",
+  portfolio_subtitle: "个人项目与创意作品",
+  portfolio_back: "返回作品集",
+  portfolio_not_found: "作品不存在",
+  portfolio_type_app: "应用",
+  portfolio_type_project: "代码项目",
+  portfolio_xiyouji_title: "西游取经地图",
+  portfolio_xiyouji_desc: "基于西游地图的交互式可视化项目，支持缩放、拖拽、地点标注与取经路线展示，还原西天取经全域路线。",
+  portfolio_xiyouji_tags: "HTML,CSS,JavaScript,SVG,地图交互",
 };
