@@ -226,7 +226,7 @@ export const en: Record<string, string> = {
   arch_bmw_source_sub: "Population · Commercial · Traffic",
   arch_bmw_spark: "Spark Processing",
   arch_bmw_model: "Location Model",
-  arch_bmw_model_sub: "H3 + ML"
+  arch_bmw_model_sub: "H3 + ML",
   arch_bmw_tableau: "Tableau Dashboard",
 
   // Analysis page
