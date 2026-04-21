@@ -23,6 +23,15 @@ const portfolioItems: PortfolioItem[] = [
     year: "2025",
     type: "app",
   },
+  {
+    slug: "nifi-arch",
+    emoji: "📊",
+    titleKey: "portfolio_nifi_title",
+    descKey: "portfolio_nifi_desc",
+    tagsKey: "portfolio_nifi_tags",
+    year: "2025",
+    type: "app",
+  },
 ];
 
 export default function PortfolioPage() {

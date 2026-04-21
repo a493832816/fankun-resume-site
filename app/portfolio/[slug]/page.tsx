@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 
 const portfolioMeta: Record<string, { emoji: string; titleKey: string }> = {
   xiyouji: { emoji: "🗺️", titleKey: "portfolio_xiyouji_title" },
+  "nifi-arch": { emoji: "📊", titleKey: "portfolio_nifi_title" },
 };
 
 export default function PortfolioItemPage() {

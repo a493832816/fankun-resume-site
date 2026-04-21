@@ -1,0 +1,253 @@
+meta:
+  profile: engineering-review
+  theme: tech-blue
+  source: generated
+  layout: horizontal
+  canvas: 1400x900
+  routing: orthogonal
+  title: 数据采集架构图 - NiFi + 自定义适配器
+  description: BMS/EMS/CCTV 数据采集系统架构
+nodes:
+  - id: bms
+    label: |-
+      BMS
+      (WinCC 4.x)
+    type: service
+    module: src_layer
+    size: large
+    position:
+      x: 40
+      'y': 80
+  - id: bms_detail
+    label: |-
+      4台空压机 | 2套纯化水
+      1套注射用水 | ~50台AHU
+      4台冷水机组 | 4台冷却塔
+    type: document
+    module: src_layer
+    size: xl
+    position:
+      x: 40
+      'y': 200
+  - id: ems
+    label: |-
+      EMS
+      (WinCC 4.x)
+    type: service
+    module: src_layer
+    size: large
+    position:
+      x: 40
+      'y': 380
+  - id: ems_detail
+    label: |-
+      温湿度 | 压差
+      车间/设备级环境监测
+    type: document
+    module: src_layer
+    size: large
+    position:
+      x: 40
+      'y': 490
+  - id: cctv
+    label: |-
+      CCTV
+      (One-Systems)
+    type: service
+    module: src_layer
+    size: large
+    position:
+      x: 40
+      'y': 620
+  - id: cctv_detail
+    label: 72台海康威视摄像头
+    type: document
+    module: src_layer
+    size: large
+    position:
+      x: 40
+      'y': 730
+  - id: opcua
+    label: OPC UA
+    type: queue
+    module: proto_layer
+    size: medium
+    position:
+      x: 380
+      'y': 140
+  - id: opcua2
+    label: OPC UA
+    type: queue
+    module: proto_layer
+    size: medium
+    position:
+      x: 380
+      'y': 420
+  - id: rtsp
+    label: RTSP/RTMP/API
+    type: queue
+    module: proto_layer
+    size: medium
+    position:
+      x: 380
+      'y': 660
+  - id: siemens
+    label: Siemens PLC
+    type: process
+    module: proto_layer
+    size: medium
+    position:
+      x: 380
+      'y': 280
+  - id: siemens2
+    label: Siemens PLC
+    type: process
+    module: proto_layer
+    size: medium
+    position:
+      x: 380
+      'y': 540
+  - id: nifi
+    label: |-
+      Apache NiFi
+      数据采集平台
+    type: process
+    module: collect_layer
+    size: xl
+    position:
+      x: 620
+      'y': 280
+    style:
+      fillColor: '#DBEAFE'
+      strokeColor: '#1D4ED8'
+  - id: adapter
+    label: 自定义适配器
+    type: service
+    module: collect_layer
+    size: large
+    position:
+      x: 620
+      'y': 460
+    style:
+      fillColor: '#FEF3C7'
+      strokeColor: '#D97706'
+  - id: historian
+    label: |-
+      时序数据库
+      (Historian)
+    type: database
+    module: out_layer
+    size: large
+    position:
+      x: 1000
+      'y': 120
+  - id: data_platform
+    label: |-
+      数据平台
+      / 中台
+    type: service
+    module: out_layer
+    size: large
+    position:
+      x: 1000
+      'y': 300
+  - id: video_storage
+    label: |-
+      视频存储
+      / NVR
+    type: database
+    module: out_layer
+    size: large
+    position:
+      x: 1000
+      'y': 480
+  - id: monitor
+    label: |-
+      监控大屏
+      / 告警
+    type: service
+    module: out_layer
+    size: large
+    position:
+      x: 1000
+      'y': 660
+edges:
+  - from: bms
+    to: siemens
+    type: data
+    label: 本地部署
+  - from: bms_detail
+    to: bms
+    type: optional
+  - from: siemens
+    to: opcua
+    type: primary
+    label: 数据上报
+  - from: ems
+    to: siemens2
+    type: data
+    label: 本地部署
+  - from: ems_detail
+    to: ems
+    type: optional
+  - from: siemens2
+    to: opcua2
+    type: primary
+    label: 数据上报
+  - from: cctv
+    to: rtsp
+    type: data
+  - from: cctv_detail
+    to: cctv
+    type: optional
+  - from: opcua
+    to: nifi
+    type: primary
+    label: OPC UA
+  - from: opcua2
+    to: nifi
+    type: primary
+    label: OPC UA
+  - from: rtsp
+    to: adapter
+    type: primary
+    label: 视频流
+  - from: nifi
+    to: adapter
+    type: bidirectional
+    label: |-
+      协议转换
+      / 数据清洗
+  - from: nifi
+    to: historian
+    type: data
+    label: 时序数据
+  - from: nifi
+    to: data_platform
+    type: data
+    label: 标准化数据
+  - from: adapter
+    to: video_storage
+    type: data
+    label: 视频流
+  - from: data_platform
+    to: monitor
+    type: primary
+    label: 可视化
+  - from: historian
+    to: data_platform
+    type: data
+    label: 查询
+modules:
+  - id: src_layer
+    label: 数据源
+    color: '#F1F5F9'
+  - id: proto_layer
+    label: 通信协议
+    color: '#FFF7ED'
+  - id: collect_layer
+    label: 数据采集层
+    color: '#EFF6FF'
+  - id: out_layer
+    label: 数据消费层
+    color: '#F0FDF4'

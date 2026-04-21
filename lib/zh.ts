@@ -291,4 +291,7 @@ export const zh: Record<string, string> = {
   portfolio_xiyouji_title: "西游取经地图",
   portfolio_xiyouji_desc: "基于西游地图的交互式可视化项目，支持缩放、拖拽、地点标注与取经路线展示，还原西天取经全域路线。",
   portfolio_xiyouji_tags: "HTML,CSS,JavaScript,SVG,地图交互",
+  portfolio_nifi_title: "NiFi 数据采集架构方案",
+  portfolio_nifi_desc: "基于 Apache NiFi + 自定义适配器的工业数据采集架构，覆盖 BMS/EMS/CCTV 三大系统的数据统一采集，支持纯软件接入与硬件增强方案。",
+  portfolio_nifi_tags: "NiFi,OPC UA,WinCC,海康威视,工业数据",
 };

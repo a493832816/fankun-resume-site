@@ -291,4 +291,7 @@ export const en: Record<string, string> = {
   portfolio_xiyouji_title: "Journey to the West Map",
   portfolio_xiyouji_desc: "Interactive visualization of the Journey to the West map with zoom, drag, location markers and pilgrimage route display.",
   portfolio_xiyouji_tags: "HTML,CSS,JavaScript,SVG,Map Interaction",
+  portfolio_nifi_title: "NiFi Data Collection Architecture",
+  portfolio_nifi_desc: "Industrial data collection architecture based on Apache NiFi + custom adapters, covering BMS/EMS/CCTV unified data collection with pure-software and hardware-enhanced options.",
+  portfolio_nifi_tags: "NiFi,OPC UA,WinCC,Hikvision,Industrial IoT",
 };
