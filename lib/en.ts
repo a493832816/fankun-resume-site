@@ -139,7 +139,7 @@ export const en: Record<string, string> = {
   proj2_analysis: "Conducted on-site clinical research, mapped the interface landscape of 20+ core systems, identified key business scenarios, and selected the iPaaS platform after evaluating multiple integration approaches.",
   proj2_management: "Adopted waterfall model with strict phase-gate progression. Created detailed interface development plans and integration schedules. Established interface testing checklists and rollback strategies.",
   proj2_collaboration: "Coordinated cross-vendor integration testing, organized user training, and established a tiered escalation mechanism (L1→L2→L3).",
-  proj2_stack: "IBM ACE,IBM MQ,NiFi,Redis,HL7,ELK,Jaeger",
+  proj2_stack: "MQ,NiFi,Redis,HL7,ELK,Jaeger",
 
   // Project 3: BMW
   proj3_bg: "BMW China store expansion relied on experience-based decisions without data-driven scientific location analysis.",
@@ -154,7 +154,7 @@ export const en: Record<string, string> = {
   arch_hospital_lis: "LIS",
   arch_hospital_pacs: "PACS",
   arch_hospital_emr: "EMR",
-  arch_hospital_ace: "ACE Integration",
+  arch_hospital_ace: "Nifi Integration",
   arch_hospital_ace_sub: "Protocol · Routing",
   arch_hospital_mq: "MQ Bus",
   arch_hospital_mq_sub: "150K/day · Zero Loss",

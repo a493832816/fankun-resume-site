@@ -141,7 +141,7 @@ export const zh: Record<string, string> = {
   proj2_analysis: "深入临床一线调研，梳理医院 20+ 核心系统的接口现状；识别关键业务场景；评估多种集成方案后选定 iPaaS 平台。",
   proj2_management: "采用瀑布模型，严格按阶段推进；制定详细接口开发计划与联调排期；建立接口联调清单；设计回滚策略。",
   proj2_collaboration: "协调跨厂商联调；组织用户培训；建立问题升级机制（L1→L2→L3）。",
-  proj2_stack: "IBM ACE,IBM MQ,NiFi,Redis,HL7,ELK,Jaeger",
+  proj2_stack: "MQ,NiFi,Redis,HL7,ELK,Jaeger",
 
   // Project 3: BMW
   proj3_bg: "BMW 中国门店拓展依赖传统经验判断，缺乏数据驱动的科学选址依据。",
@@ -156,7 +156,7 @@ export const zh: Record<string, string> = {
   arch_hospital_lis: "LIS",
   arch_hospital_pacs: "PACS",
   arch_hospital_emr: "EMR",
-  arch_hospital_ace: "ACE 集成引擎",
+  arch_hospital_ace: "Nifi 集成引擎",
   arch_hospital_ace_sub: "协议适配 · 智能路由",
   arch_hospital_mq: "MQ 消息总线",
   arch_hospital_mq_sub: "15万+/日 · 零丢失",
