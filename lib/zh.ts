@@ -18,7 +18,7 @@ export const zh: Record<string, string> = {
   projects_count: "核心项目",
   max_budget: "千万+ 最大预算",
   team_size: "人团队规模",
-  zero_delay_suffix: "delay",
+  zero_delay_suffix: "延迟",
   zero_delay_label: "零",
 
   // Skills
