@@ -12,35 +12,45 @@
       --secondary: #10B981;
       --accent: #F59E0B;
       --danger: #EF4444;
+      --purple: #8B5CF6;
     }
-    .reveal { font-size: 22px; }
-    .reveal h1 { font-size: 2em; color: var(--primary); }
-    .reveal h2 { font-size: 1.5em; color: var(--primary); }
-    .reveal h3 { color: var(--secondary); }
+    .reveal { font-size: 20px; }
+    .reveal h1 { font-size: 1.8em; color: var(--primary); }
+    .reveal h2 { font-size: 1.4em; color: var(--primary); }
+    .reveal h3 { color: var(--secondary); font-size: 1em; }
     .reveal .slides section { text-align: left; }
     .reveal .slides section.title-slide { text-align: center; }
-    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.7em; margin: 2px; }
-    .tag-blue { background: #1E3A5F; color: #93C5FD; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.65em; margin: 2px; }
     .tag-green { background: #14532D; color: #86EFAC; }
+    .tag-blue { background: #1E3A5F; color: #93C5FD; }
     .tag-yellow { background: #713F12; color: #FDE68A; }
     .tag-red { background: #7F1D1D; color: #FCA5A5; }
     .tag-purple { background: #3B0764; color: #D8B4FE; }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin: 8px 0; }
-    .card h4 { margin: 0 0 8px 0; color: var(--primary); font-size: 0.9em; }
-    .card ul { margin: 0; padding-left: 18px; font-size: 0.8em; }
-    .card li { margin: 4px 0; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.75em; margin: 10px 0; }
-    th { background: rgba(59,130,246,0.2); color: #93C5FD; padding: 8px; text-align: left; }
-    td { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .highlight { color: var(--accent); font-weight: bold; }
-    .flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 0.8em; margin: 10px 0; }
-    .flow-box { background: rgba(59,130,246,0.15); border: 1px solid var(--primary); border-radius: 8px; padding: 8px 14px; text-align: center; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; margin: 6px 0; }
+    .card h4 { margin: 0 0 6px 0; color: var(--primary); font-size: 0.85em; }
+    .card ul { margin: 0; padding-left: 16px; font-size: 0.75em; }
+    .card li { margin: 3px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.7em; margin: 8px 0; }
+    th { background: rgba(59,130,246,0.2); color: #93C5FD; padding: 6px 8px; text-align: left; }
+    td { padding: 5px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .flow { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; font-size: 0.75em; margin: 8px 0; }
+    .flow-box { background: rgba(59,130,246,0.12); border: 1px solid var(--primary); border-radius: 8px; padding: 8px 12px; text-align: center; }
     .flow-arrow { color: var(--accent); font-size: 1.2em; }
+    .highlight { color: var(--accent); font-weight: bold; }
     .check { color: var(--secondary); }
     .warn { color: var(--accent); }
     .cross { color: var(--danger); }
-    .section-num { color: var(--accent); font-size: 0.6em; }
+    .phase-badge { display: inline-block; padding: 3px 12px; border-radius: 4px; font-size: 0.65em; font-weight: bold; margin-bottom: 8px; }
+    .phase-1 { background: #14532D; color: #86EFAC; }
+    .phase-2 { background: #1E3A5F; color: #93C5FD; }
+    .phase-3 { background: #713F12; color: #FDE68A; }
+    .condition-box { background: rgba(245,158,11,0.08); border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 6px 0; font-size: 0.75em; }
+    .condition-box .label { color: var(--accent); font-weight: bold; }
+    .fail-box { background: rgba(239,68,68,0.08); border-left: 3px solid var(--danger); padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 6px 0; font-size: 0.75em; }
+    .fail-box .label { color: var(--danger); font-weight: bold; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.7em; font-weight: bold; margin-right: 6px; }
   </style>
 </head>
 <body>
@@ -50,33 +60,33 @@
       <!-- Slide 1: Title -->
       <section class="title-slide">
         <h1>工业数据采集架构方案</h1>
-        <h3>NiFi + 自定义适配器模式</h3>
-        <p style="margin-top:40px; font-size:0.7em; color:#888;">
-          BMS / EMS / CCTV 数据统一采集平台
+        <h3>NiFi + 自定义适配器 · 纯软件优先</h3>
+        <p style="margin-top:30px; font-size:0.65em; color:#888;">
+          BMS · EMS · CCTV 数据统一采集<br/>
+          纯软件方案 → 条件校验 → 硬件补充
         </p>
       </section>
 
       <!-- Slide 2: 项目背景 -->
       <section>
-        <h2>项目背景</h2>
+        <h2>项目背景与采集范围</h2>
         <div class="two-col">
           <div>
-            <h3>采集范围</h3>
             <div class="card">
               <h4>🏭 BMS 楼宇管理系统</h4>
               <ul>
-                <li>WinCC 4.x 本地部署（Siemens）</li>
-                <li>4台空压机、2套纯化水系统</li>
-                <li>1套注射用水、~50台AHU设备</li>
-                <li>4台冷水机组、4台冷却塔</li>
+                <li><strong>平台：</strong>WinCC 4.x 本地部署（Siemens）</li>
+                <li><strong>通信：</strong>Siemens PLC → OPC UA</li>
+                <li><strong>设备：</strong>4台空压机、2套纯化水、1套注射用水</li>
+                <li><strong>设备：</strong>~50台AHU、4台冷水机组、4台冷却塔</li>
               </ul>
             </div>
             <div class="card">
               <h4>🌡️ EMS 环境监测系统</h4>
               <ul>
-                <li>WinCC 4.x 本地部署（Siemens）</li>
-                <li>温湿度、压差等环境监测</li>
-                <li>车间级 + 设备级覆盖</li>
+                <li><strong>平台：</strong>WinCC 4.x 本地部署（Siemens）</li>
+                <li><strong>通信：</strong>Siemens PLC → OPC UA</li>
+                <li><strong>数据：</strong>温湿度、压差（车间级+设备级）</li>
               </ul>
             </div>
           </div>
@@ -84,17 +94,17 @@
             <div class="card">
               <h4>📹 CCTV 视频监控系统</h4>
               <ul>
-                <li>One-Systems 平台</li>
-                <li>72台海康威视摄像头</li>
-                <li>RTSP / RTMP / API 接入</li>
+                <li><strong>平台：</strong>One-Systems</li>
+                <li><strong>通信：</strong>RTSP / RTMP / API</li>
+                <li><strong>设备：</strong>72台海康威视摄像头</li>
               </ul>
             </div>
-            <div class="card" style="border-color: var(--accent);">
-              <h4>🎯 核心目标</h4>
+            <div class="card" style="border-color: var(--secondary);">
+              <h4>🎯 设计原则：纯软件优先</h4>
               <ul>
-                <li>统一数据采集，消除信息孤岛</li>
-                <li>实时监控 + 历史数据追溯</li>
-                <li>为上层数据分析和智能应用提供基础</li>
+                <li><span class="check">✓</span> 先用纯软件方案打通全部链路</li>
+                <li><span class="check">✓</span> 每步验证条件，不满足再补硬件</li>
+                <li><span class="check">✓</span> 最小化硬件投入</li>
               </ul>
             </div>
           </div>
@@ -103,458 +113,541 @@
 
       <!-- Slide 3: 整体架构 -->
       <section>
-        <h2>整体架构概览</h2>
+        <h2>整体架构（纯软件方案）</h2>
         <div class="flow">
-          <div class="flow-box" style="background:rgba(239,68,68,0.15); border-color:#EF4444;">
-            <strong>数据源层</strong><br/>
+          <div class="flow-box" style="background:rgba(239,68,68,0.12); border-color:#EF4444;">
+            <strong>数据源</strong><br/>
             <span style="font-size:0.8em">BMS · EMS · CCTV</span>
           </div>
           <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(245,158,11,0.15); border-color:#F59E0B;">
-            <strong>通信协议层</strong><br/>
-            <span style="font-size:0.8em">OPC UA · RTSP/API</span>
+          <div class="flow-box" style="background:rgba(245,158,11,0.12); border-color:#F59E0B;">
+            <strong>协议层</strong><br/>
+            <span style="font-size:0.8em">OPC UA · RTSP/API<br/>（已有，无需新增）</span>
           </div>
           <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(59,130,246,0.2); border-color:#3B82F6; min-width:180px;">
-            <strong>数据采集层</strong><br/>
+          <div class="flow-box" style="background:rgba(59,130,246,0.18); border-color:#3B82F6; min-width:160px;">
+            <strong>采集层（新增）</strong><br/>
             <span style="font-size:0.8em">Apache NiFi<br/>+ 自定义适配器</span>
           </div>
           <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(16,185,129,0.15); border-color:#10B981;">
-            <strong>数据消费层</strong><br/>
+          <div class="flow-box" style="background:rgba(16,185,129,0.12); border-color:#10B981;">
+            <strong>消费层</strong><br/>
             <span style="font-size:0.8em">存储 · 平台 · 大屏</span>
           </div>
         </div>
-        <div class="two-col" style="margin-top:20px;">
+        <div class="condition-box" style="margin-top:16px;">
+          <span class="label">核心思路：</span>WinCC 4.x 已内置 OPC UA Server，海康摄像头原生支持 RTSP/ISAPI。<br/>
+          <strong>纯软件方案 = NiFi 直接对接现有协议，零额外硬件。</strong>
+        </div>
+        <div class="two-col" style="margin-top:12px;">
           <div class="card">
-            <h4>设计原则</h4>
+            <h4>Apache NiFi 角色</h4>
             <ul>
-              <li><span class="check">✓</span> 协议标准化：统一通过 OPC UA 接入工控数据</li>
-              <li><span class="check">✓</span> 解耦采集与消费：NiFi 作为中间层缓冲</li>
-              <li><span class="check">✓</span> 可扩展：新增数据源只需加适配器</li>
-              <li><span class="check">✓</span> 高可用：NiFi 集群 + 数据缓存</li>
+              <li>可视化数据流编排</li>
+              <li>内置 OPC UA Processor</li>
+              <li>集群部署，高可用</li>
+              <li>数据血缘 + 审计日志</li>
             </ul>
           </div>
           <div class="card">
-            <h4>关键技术选型</h4>
+            <h4>自定义适配器角色</h4>
             <ul>
-              <li>Apache NiFi — 可视化数据流编排</li>
-              <li>自定义适配器 — 处理非标准协议</li>
-              <li>OPC UA — 工业标准通信协议</li>
-              <li>时序数据库 — 高效存储传感器数据</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 4: BMS 采集 -->
-      <section>
-        <h2>BMS 数据采集方案</h2>
-        <div class="flow">
-          <div class="flow-box" style="background:rgba(239,68,68,0.1); border-color:#EF4444;">
-            <strong>WinCC 4.x</strong><br/>
-            <span style="font-size:0.75em">BMS 服务器<br/>本地部署</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(245,158,11,0.1); border-color:#F59E0B;">
-            <strong>Siemens PLC</strong><br/>
-            <span style="font-size:0.75em">S7-1200/1500<br/>底层控制器</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box">
-            <strong>OPC UA Server</strong><br/>
-            <span style="font-size:0.75em">WinCC 内置<br/>或独立 OPC UA</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6;">
-            <strong>NiFi</strong><br/>
-            <span style="font-size:0.75em">OPC UA Processor<br/>数据采集</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981;">
-            <strong>时序数据库</strong><br/>
-            <span style="font-size:0.75em">InfluxDB<br/>TDengine</span>
-          </div>
-        </div>
-        <table>
-          <tr><th>设备类型</th><th>数量</th><th>采集点位（估）</th><th>采集频率</th></tr>
-          <tr><td>空压机</td><td>4台</td><td>~80点</td><td>1s</td></tr>
-          <tr><td>纯化水系统</td><td>2套</td><td>~60点</td><td>1s</td></tr>
-          <tr><td>注射用水</td><td>1套</td><td>~30点</td><td>1s</td></tr>
-          <tr><td>AHU 空调机组</td><td>~50台</td><td>~1000点</td><td>5s</td></tr>
-          <tr><td>冷水机组</td><td>4台</td><td>~80点</td><td>1s</td></tr>
-          <tr><td>冷却塔</td><td>4台</td><td>~40点</td><td>1s</td></tr>
-          <tr style="font-weight:bold;"><td>合计</td><td>~65台/套</td><td><span class="highlight">~1290点</span></td><td>-</td></tr>
-        </table>
-      </section>
-
-      <!-- Slide 5: EMS 采集 -->
-      <section>
-        <h2>EMS 数据采集方案</h2>
-        <div class="flow">
-          <div class="flow-box" style="background:rgba(239,68,68,0.1); border-color:#EF4444;">
-            <strong>WinCC 4.x</strong><br/>
-            <span style="font-size:0.75em">EMS 服务器<br/>本地部署</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(245,158,11,0.1); border-color:#F59E0B;">
-            <strong>Siemens PLC</strong><br/>
-            <span style="font-size:0.75em">传感器采集</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box">
-            <strong>OPC UA Server</strong><br/>
-            <span style="font-size:0.75em">标准协议输出</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6;">
-            <strong>NiFi</strong><br/>
-            <span style="font-size:0.75em">OPC UA Processor</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981;">
-            <strong>数据平台</strong><br/>
-            <span style="font-size:0.75em">环境监测看板</span>
-          </div>
-        </div>
-        <div class="two-col">
-          <div class="card">
-            <h4>采集内容</h4>
-            <ul>
-              <li>温度（车间级 / 设备级）</li>
-              <li>湿度</li>
-              <li>压差（洁净区关键指标）</li>
-              <li>其他环境参数</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>注意事项</h4>
-            <ul>
-              <li><span class="warn">⚠</span> 洁净区数据需满足 GMP 合规要求</li>
-              <li><span class="warn">⚠</span> 采集频率建议 ≤ 30s，需连续无间断</li>
-              <li><span class="check">✓</span> 数据需带时间戳 + 设备标识</li>
-              <li><span class="check">✓</span> 异常值过滤与告警阈值设定</li>
+              <li>海康 ISAPI 私有协议解析</li>
+              <li>RTSP → HLS/FLV 流转换</li>
+              <li>非标准接口适配</li>
+              <li>打包为 .nar 插件热部署</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- Slide 6: CCTV 采集 -->
+      <!-- Slide 4: Phase 1 - Step 1 -->
       <section>
-        <h2>CCTV 视频数据采集方案</h2>
-        <div class="flow">
-          <div class="flow-box" style="background:rgba(239,68,68,0.1); border-color:#EF4444;">
-            <strong>One-Systems</strong><br/>
-            <span style="font-size:0.75em">视频管理平台</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box">
-            <strong>RTSP / RTMP / API</strong><br/>
-            <span style="font-size:0.75em">多协议适配</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(245,158,11,0.15); border-color:#F59E0B;">
-            <strong>自定义适配器</strong><br/>
-            <span style="font-size:0.75em">协议转换<br/>流媒体代理</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6;">
-            <strong>NiFi</strong><br/>
-            <span style="font-size:0.75em">路由 / 分发</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981;">
-            <strong>视频存储/NVR</strong><br/>
-            <span style="font-size:0.75em">回放 / 分析</span>
-          </div>
-        </div>
-        <div class="two-col">
-          <div class="card">
-            <h4>72台海康威视摄像头</h4>
-            <ul>
-              <li>RTSP 取流 → 转码 / 录像</li>
-              <li>API 获取设备状态、告警信息</li>
-              <li>自定义适配器处理海康私有协议</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>自定义适配器职责</h4>
-            <ul>
-              <li>海康 SDK / ISAPI 协议解析</li>
-              <li>RTSP → HLS/FLV 流格式转换</li>
-              <li>录像计划管理与存储调度</li>
-              <li>设备状态心跳检测</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 7: NiFi 核心设计 -->
-      <section>
-        <h2>Apache NiFi 核心设计</h2>
+        <h2><span class="phase-badge phase-1">Phase 1 · 环境调查</span></h2>
+        <h3>Step 1：确认 OPC UA 可用性</h3>
         <div class="two-col">
           <div>
-            <div class="card">
-              <h4>为何选择 NiFi？</h4>
-              <ul>
-                <li><span class="check">✓</span> 可视化拖拽编排数据流</li>
-                <li><span class="check">✓</span> 内置 300+ Processor（OPC UA、HTTP、DB...）</li>
-                <li><span class="check">✓</span> 数据流优先级 + 背压机制</li>
-                <li><span class="check">✓</span> 集群部署，水平扩展</li>
-                <li><span class="check">✓</span> 完整的数据血缘与审计</li>
+            <div class="condition-box">
+              <span class="label">前置条件（WinCC 4.x）：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li>WinCC 4.x 版本 ≥ V7.0（支持 OPC UA）</li>
+                <li>OPC UA Server 已启用</li>
+                <li>OPC UA 端口（默认 4840）可达</li>
+                <li>有 OPC UA 访问凭证（证书/用户名密码）</li>
               </ul>
             </div>
-            <div class="card">
-              <h4>自定义适配器开发</h4>
-              <ul>
-                <li>NiFi Nar（NiFi Archive）插件机制</li>
-                <li>Java 实现，继承 Processor 基类</li>
-                <li>处理非标准协议（海康 ISAPI、WinCC 私有接口）</li>
-                <li>独立打包，热部署无需重启</li>
+            <div class="condition-box">
+              <span class="label">验证方法：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li>使用 <strong>UaExplorer</strong> 连接 WinCC OPC UA Server</li>
+                <li>能浏览到 BMS/EMS 的点位树</li>
+                <li>能读取实时数据值</li>
               </ul>
             </div>
           </div>
           <div>
-            <div class="card" style="border-color: var(--secondary);">
-              <h4>核心 Processor 流</h4>
-              <div class="flow" style="flex-direction:column; align-items:stretch; gap:4px;">
-                <div style="display:flex; justify-content:space-between;">
-                  <span class="tag tag-blue">GetOPCUA</span>
-                  <span class="tag tag-green">OPC UA 客户端</span>
-                </div>
-                <div style="text-align:center; color:var(--accent);">↓</div>
-                <div style="display:flex; justify-content:space-between;">
-                  <span class="tag tag-blue">RouteOnAttribute</span>
-                  <span class="tag tag-green">数据分类路由</span>
-                </div>
-                <div style="text-align:center; color:var(--accent);">↓</div>
-                <div style="display:flex; justify-content:space-between;">
-                  <span class="tag tag-yellow">自定义适配器</span>
-                  <span class="tag tag-green">清洗 / 转换</span>
-                </div>
-                <div style="text-align:center; color:var(--accent);">↓</div>
-                <div style="display:flex; justify-content:space-between;">
-                  <span class="tag tag-blue">PutInfluxDB / PutSQL</span>
-                  <span class="tag tag-green">写入存储</span>
-                </div>
+            <div class="fail-box">
+              <span class="label">❌ 如果不满足 → 需要采购硬件：</span>
+              <p style="margin:6px 0 0 0;"><strong>场景 A：WinCC 版本过旧（无 OPC UA）</strong></p>
+              <ul style="margin:4px 0 0 16px;">
+                <li>采购 <strong>OPC UA 网关</strong>（如 Softing、Kepware）</li>
+                <li>将 S7/MPI/Profibus 转为 OPC UA</li>
+                <li>预算：<span class="highlight">¥5,000-20,000 / 套 × 2套</span></li>
+              </ul>
+              <p style="margin:8px 0 0 0;"><strong>场景 B：网络不通（工控网与办公网隔离）</strong></p>
+              <ul style="margin:4px 0 0 16px;">
+                <li>采购 <strong>工业网关</strong>（如 Moxa NPort、Siemens SCALANCE）</li>
+                <li>双网卡桥接两个网段</li>
+                <li>预算：<span class="highlight">¥3,000-8,000 / 台 × 2-3台</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Phase 1 - Step 2 -->
+      <section>
+        <h2><span class="phase-badge phase-1">Phase 1 · 环境调查</span></h2>
+        <h3>Step 2：确认 CCTV 视频流可获取</h3>
+        <div class="two-col">
+          <div>
+            <div class="condition-box">
+              <span class="label">前置条件（海康威视 + One-Systems）：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li>摄像头 RTSP URL 格式已知</li>
+                <li>NiFi 服务器能访问摄像头 IP</li>
+                <li>One-Systems API 接口文档可获取</li>
+                <li>摄像头登录凭证（用户名/密码）</li>
+              </ul>
+            </div>
+            <div class="condition-box">
+              <span class="label">验证方法：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li><strong>VLC</strong> 播放 RTSP 流：<code style="color:#93C5FD">rtsp://ip:554/Streaming/Channels/101</code></li>
+                <li><strong>curl</strong> 调用 ISAPI 接口获取设备状态</li>
+                <li>确认码率、分辨率可接受</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="fail-box">
+              <span class="label">❌ 如果不满足 → 需要采购硬件：</span>
+              <p style="margin:6px 0 0 0;"><strong>场景 C：摄像头在独立视频专网，无法从 NiFi 访问</strong></p>
+              <ul style="margin:4px 0 0 16px;">
+                <li>采购 <strong>视频网关 / 流媒体服务器</strong></li>
+                <li>部署在视频网内，将 RTSP 转为 HLS 对外输出</li>
+                <li>预算：<span class="highlight">¥5,000-15,000</span></li>
+              </ul>
+              <p style="margin:8px 0 0 0;"><strong>场景 D：72路视频需要集中存储</strong></p>
+              <ul style="margin:4px 0 0 16px;">
+                <li>采购 <strong>NVR / 存储服务器</strong></li>
+                <li>72路 × 30天 ≈ 40-80TB</li>
+                <li>预算：<span class="highlight">¥50,000-120,000</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Phase 1 - Step 3 -->
+      <section>
+        <h2><span class="phase-badge phase-1">Phase 1 · 环境调查</span></h2>
+        <h3>Step 3：确认 NiFi 部署环境</h3>
+        <div class="two-col">
+          <div>
+            <div class="condition-box">
+              <span class="label">前置条件：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li>3台服务器或虚拟机（4C8G 起步）</li>
+                <li>Java 11+ 运行环境</li>
+                <li>服务器间网络互通</li>
+                <li>ZooKeeper 3节点（NiFi 集群依赖）</li>
+                <li>能访问 WinCC OPC UA + 摄像头 IP</li>
+              </ul>
+            </div>
+            <div class="condition-box">
+              <span class="label">验证方法：</span>
+              <ul style="margin:6px 0 0 16px;">
+                <li>在服务器上安装 NiFi，启动单节点验证</li>
+                <li>确认能连接 OPC UA Server</li>
+                <li>确认能拉取 RTSP 流</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="fail-box">
+              <span class="label">❌ 如果不满足 → 需要采购：</span>
+              <p style="margin:6px 0 0 0;"><strong>场景 E：没有可用服务器</strong></p>
+              <ul style="margin:4px 0 0 16px;">
+                <li>采购 <strong>3台工控机 / 服务器</strong></li>
+                <li>或使用现有虚拟化平台分配 VM</li>
+                <li>预算：<span class="highlight">¥15,000-30,000（物理机）</span></li>
+                <li>云上 VM 约 ¥1,500-3,000/月</li>
+              </ul>
+            </div>
+            <div class="card" style="margin-top:8px; border-color: var(--secondary);">
+              <h4>✅ Phase 1 通过标准</h4>
+              <ul>
+                <li>OPC UA 可连接并读到数据</li>
+                <li>RTSP 流可播放</li>
+                <li>NiFi 单节点能跑通采集流程</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Phase 2 -->
+      <section>
+        <h2><span class="phase-badge phase-2">Phase 2 · 全量接入</span></h2>
+        <h3>自定义适配器开发 + 全量数据接入</h3>
+        <div class="three-col">
+          <div>
+            <div class="card">
+              <h4>BMS 适配器</h4>
+              <ul>
+                <li>OPC UA Processor 配置</li>
+                <li>点位映射（~1290点）</li>
+                <li>数据清洗 + 标准化</li>
+                <li>写入时序数据库</li>
+              </ul>
+              <div style="margin-top:6px;">
+                <span class="tag tag-green">纯软件</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h4>EMS 适配器</h4>
+              <ul>
+                <li>OPC UA Processor 配置</li>
+                <li>GMP 合规数据标记</li>
+                <li>异常值过滤</li>
+                <li>环境监测看板输出</li>
+              </ul>
+              <div style="margin-top:6px;">
+                <span class="tag tag-green">纯软件</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h4>CCTV 适配器</h4>
+              <ul>
+                <li>海康 ISAPI 协议解析</li>
+                <li>RTSP → HLS 流转换</li>
+                <li>72路设备状态监控</li>
+                <li>录像计划管理</li>
+              </ul>
+              <div style="margin-top:6px;">
+                <span class="tag tag-green">纯软件</span>
               </div>
             </div>
           </div>
         </div>
+        <div class="condition-box" style="margin-top:12px;">
+          <span class="label">Step 4 条件：</span>NiFi 集群部署完成（3节点）+ ZooKeeper 就绪 → 开始全量接入
+        </div>
+        <div class="condition-box">
+          <span class="label">Step 5 条件：</span>时序数据库就绪（InfluxDB/TDengine）→ 开始写入数据
+        </div>
+        <div class="fail-box">
+          <span class="label">⚠️ 如果采集性能不足（点位 > 5000 / 频率 < 100ms）：</span>
+          采购 <strong>边缘工控机</strong>，部署在工控网内做本地预处理，批量上报 NiFi。预算：<span class="highlight">¥8,000-15,000 / 台</span>
+        </div>
       </section>
 
-      <!-- Slide 8: 纯软件接入条件 -->
+      <!-- Slide 8: Phase 3 -->
       <section>
-        <h2>纯软件接入方案 <span style="font-size:0.6em; color:var(--secondary);">✓ 无需额外硬件</span></h2>
+        <h2><span class="phase-badge phase-3">Phase 3 · 按需增强</span></h2>
+        <h3>根据运行情况决定是否补充硬件</h3>
         <table>
-          <tr><th>条件项</th><th>要求</th><th>验证方式</th></tr>
+          <tr><th>触发条件</th><th>问题现象</th><th>需要采购</th><th>预算</th></tr>
           <tr>
-            <td>WinCC 4.x OPC UA</td>
-            <td><span class="check">✓</span> WinCC 4.x 内置 OPC UA Server</td>
-            <td>确认 OPC UA 端口（默认 4840）已开放</td>
+            <td>网络隔离</td>
+            <td>NiFi 无法访问 WinCC/PLC</td>
+            <td>工业网关（Moxa/SCALANCE）</td>
+            <td>¥6K-24K</td>
           </tr>
           <tr>
-            <td>网络连通性</td>
-            <td><span class="check">✓</span> NiFi 服务器能访问 WinCC / Siemens 网络</td>
-            <td>ping + telnet 端口测试</td>
+            <td>WinCC 无 OPC UA</td>
+            <td>只有 S7/MPI 协议</td>
+            <td>OPC UA 网关（Softing/Kepware）</td>
+            <td>¥10K-40K</td>
           </tr>
           <tr>
-            <td>OPC UA 安全配置</td>
-            <td><span class="check">✓</span> 证书认证 / 用户名密码</td>
-            <td>UaExplorer 连接测试</td>
+            <td>视频网隔离</td>
+            <td>NiFi 无法访问摄像头</td>
+            <td>流媒体网关服务器</td>
+            <td>¥5K-15K</td>
           </tr>
           <tr>
-            <td>One-Systems API</td>
-            <td><span class="check">✓</span> RTSP URL 可获取</td>
-            <td>VLC 播放 RTSP 流测试</td>
+            <td>采集性能瓶颈</td>
+            <td>CPU/网络打满，数据延迟</td>
+            <td>边缘工控机（预处理）</td>
+            <td>¥8K-30K</td>
           </tr>
           <tr>
-            <td>海康 ISAPI</td>
-            <td><span class="check">✓</span> 摄像头 HTTP API 可达</td>
-            <td>curl 调用 ISAPI 接口</td>
+            <td>需要视频存储</td>
+            <td>72路 30天录像</td>
+            <td>NVR / 存储服务器（40-80TB）</td>
+            <td>¥50K-120K</td>
           </tr>
           <tr>
-            <td>时间同步</td>
-            <td><span class="check">✓</span> NTP 统一时钟</td>
-            <td>各服务器时间差 < 1s</td>
+            <td>无服务器</td>
+            <td>NiFi 无处部署</td>
+            <td>服务器 × 3 或云 VM</td>
+            <td>¥15K-30K</td>
           </tr>
         </table>
-        <div class="card" style="border-color: var(--secondary); margin-top:12px;">
-          <h4>✅ 纯软件方案优势</h4>
+        <div class="card" style="border-color: var(--secondary); margin-top:8px;">
+          <h4>💡 关键原则</h4>
           <ul>
-            <li>WinCC 4.x 已内置 OPC UA Server，无需额外硬件网关</li>
-            <li>NiFi 通过标准协议直接对接，采集软件部署在现有服务器或虚拟机上</li>
-            <li>海康摄像头原生支持 RTSP / ISAPI，自定义适配器纯软件实现</li>
-            <li>零硬件成本，部署周期短（1-2周）</li>
+            <li><span class="check">✓</span> <strong>先验证再采购</strong> — 不预判问题，实际测不通再买</li>
+            <li><span class="check">✓</span> <strong>最小化投入</strong> — 很多场景纯软件就够了</li>
+            <li><span class="check">✓</span> <strong>优先复用现有</strong> — WinCC/PLC/NVR 已有，能不买就不买</li>
           </ul>
         </div>
       </section>
 
-      <!-- Slide 9: 需要补充的硬件条件 -->
+      <!-- Slide 9: 决策流程图 -->
       <section>
-        <h2>如需硬件补充的条件 <span style="font-size:0.6em; color:var(--accent);">可选增强</span></h2>
-        <div class="two-col">
-          <div>
-            <div class="card" style="border-color: var(--danger);">
-              <h4>🔴 场景一：网络隔离</h4>
-              <p style="font-size:0.75em; color:#999; margin:4px 0;">WinCC 在工控网段，NiFi 在办公网段，无路由</p>
-              <ul>
-                <li><strong>工业网关</strong>（如 Moxa、Siemens SCALANCE）</li>
-                <li>双网卡：一面接 PLC/WinCC，一面接 NiFi</li>
-                <li>协议转换 + 网络隔离</li>
-                <li style="color:var(--accent);">预估成本：¥3,000-8,000 / 台</li>
-              </ul>
+        <h2>决策流程：纯软件 vs 硬件补充</h2>
+        <div style="display:flex; flex-direction:column; gap:6px; font-size:0.75em;">
+          <div class="flow-box" style="background:rgba(59,130,246,0.15); max-width:500px; margin:0 auto;">
+            <strong>开始：纯软件方案设计</strong>
+          </div>
+          <div style="text-align:center; color:var(--accent);">↓</div>
+
+          <div class="flow-box" style="background:rgba(245,158,11,0.12); border-color:var(--accent); max-width:500px; margin:0 auto;">
+            <strong>Step 1：</strong>WinCC OPC UA 能连上吗？
+          </div>
+          <div style="display:flex; justify-content:center; gap:40px; font-size:0.85em;">
+            <div style="text-align:center;">
+              <span class="check">✓ 能</span>
+              <div style="color:var(--accent);">↓</div>
             </div>
-            <div class="card" style="border-color: var(--danger);">
-              <h4>🔴 场景二：WinCC 版本不支持 OPC UA</h4>
-              <p style="font-size:0.75em; color:#999; margin:4px 0;">旧版 WinCC 无 OPC UA，仅有 S7 通信</p>
-              <ul>
-                <li><strong>OPC UA 网关</strong>（如 Softing、Kepware）</li>
-                <li>将 S7 / MPI / Profibus 转为 OPC UA</li>
-                <li style="color:var(--accent);">预估成本：¥5,000-20,000 / 套</li>
-              </ul>
+            <div style="text-align:center;">
+              <span class="cross">✗ 不能</span>
+              <div style="color:var(--danger);">↓</div>
+              <div class="flow-box" style="background:rgba(239,68,68,0.12); border-color:var(--danger); font-size:0.85em; margin-top:4px;">
+                买 <strong>OPC UA 网关</strong> 或 <strong>工业网关</strong>
+              </div>
             </div>
           </div>
-          <div>
-            <div class="card" style="border-color: var(--accent);">
-              <h4>🟡 场景三：高性能采集需求</h4>
-              <p style="font-size:0.75em; color:#999; margin:4px 0;">采集点位 > 5000，频率 < 100ms</p>
-              <ul>
-                <li><strong>边缘计算节点</strong>（工控机）</li>
-                <li>部署在工控网络内，本地预处理</li>
-                <li>批量上报 NiFi，减少网络压力</li>
-                <li style="color:var(--accent);">预估成本：¥8,000-15,000 / 台</li>
-              </ul>
+
+          <div class="flow-box" style="background:rgba(245,158,11,0.12); border-color:var(--accent); max-width:500px; margin:0 auto;">
+            <strong>Step 2：</strong>摄像头 RTSP 能播放吗？
+          </div>
+          <div style="display:flex; justify-content:center; gap:40px; font-size:0.85em;">
+            <div style="text-align:center;">
+              <span class="check">✓ 能</span>
+              <div style="color:var(--accent);">↓</div>
             </div>
-            <div class="card" style="border-color: var(--accent);">
-              <h4>🟡 场景四：视频存储扩容</h4>
-              <p style="font-size:0.75em; color:#999; margin:4px 0;">72路摄像头，30天录像存储</p>
-              <ul>
-                <li><strong>NVR / 存储服务器</strong></li>
-                <li>72路 × 30天 ≈ 40-80TB（按 2Mbps 码率）</li>
-                <li>RAID 5/6 + 冗余电源</li>
-                <li style="color:var(--accent);">预估成本：¥50,000-120,000</li>
-              </ul>
+            <div style="text-align:center;">
+              <span class="cross">✗ 不能</span>
+              <div style="color:var(--danger);">↓</div>
+              <div class="flow-box" style="background:rgba(239,68,68,0.12); border-color:var(--danger); font-size:0.85em; margin-top:4px;">
+                买 <strong>流媒体网关</strong>
+              </div>
             </div>
+          </div>
+
+          <div class="flow-box" style="background:rgba(245,158,11,0.12); border-color:var(--accent); max-width:500px; margin:0 auto;">
+            <strong>Step 3：</strong>有服务器部署 NiFi 吗？
+          </div>
+          <div style="display:flex; justify-content:center; gap:40px; font-size:0.85em;">
+            <div style="text-align:center;">
+              <span class="check">✓ 有</span>
+              <div style="color:var(--accent);">↓</div>
+            </div>
+            <div style="text-align:center;">
+              <span class="cross">✗ 没有</span>
+              <div style="color:var(--danger);">↓</div>
+              <div class="flow-box" style="background:rgba(239,68,68,0.12); border-color:var(--danger); font-size:0.85em; margin-top:4px;">
+                买/租 <strong>服务器</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-box" style="background:rgba(16,185,129,0.15); border-color:var(--secondary); max-width:500px; margin:0 auto;">
+            <strong>✅ 全部通过 → 纯软件部署 NiFi + 适配器</strong>
           </div>
         </div>
       </section>
 
-      <!-- Slide 10: 硬件清单汇总 -->
+      <!-- Slide 10: BMS 详细采集 -->
       <section>
-        <h2>硬件需求汇总</h2>
+        <h2>BMS 采集详情</h2>
+        <div class="flow" style="margin-bottom:10px;">
+          <div class="flow-box" style="background:rgba(239,68,68,0.1); border-color:#EF4444;">
+            <strong>WinCC 4.x</strong><br/><span style="font-size:0.8em">BMS 服务器</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box" style="background:rgba(245,158,11,0.1); border-color:#F59E0B;">
+            <strong>Siemens PLC</strong><br/><span style="font-size:0.8em">S7-1200/1500</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box">
+            <strong>OPC UA</strong><br/><span style="font-size:0.8em">WinCC 内置</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6;">
+            <strong>NiFi</strong><br/><span style="font-size:0.8em">GetOPCUA</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981;">
+            <strong>时序数据库</strong><br/><span style="font-size:0.8em">InfluxDB</span>
+          </div>
+        </div>
         <table>
-          <tr><th>场景</th><th>设备</th><th>数量</th><th>预估成本</th><th>优先级</th></tr>
-          <tr style="color:var(--secondary);">
-            <td>纯软件方案</td><td>无额外硬件</td><td>-</td><td>¥0</td>
-            <td><span class="tag tag-green">必选</span></td>
-          </tr>
-          <tr>
-            <td>网络隔离</td><td>工业网关</td><td>2-3台</td><td>¥6K-24K</td>
-            <td><span class="tag tag-red">按需</span></td>
-          </tr>
-          <tr>
-            <td>旧版 WinCC</td><td>OPC UA 网关</td><td>2套</td><td>¥10K-40K</td>
-            <td><span class="tag tag-red">按需</span></td>
-          </tr>
-          <tr>
-            <td>高性能采集</td><td>边缘工控机</td><td>1-2台</td><td>¥8K-30K</td>
-            <td><span class="tag tag-yellow">建议</span></td>
-          </tr>
-          <tr>
-            <td>视频存储</td><td>NVR / 存储服务器</td><td>1套</td><td>¥50K-120K</td>
-            <td><span class="tag tag-yellow">建议</span></td>
-          </tr>
-          <tr>
-            <td>NiFi 部署</td><td>服务器 / 虚拟机</td><td>3节点集群</td><td>已有或云上</td>
-            <td><span class="tag tag-blue">基础</span></td>
-          </tr>
+          <tr><th>设备类型</th><th>数量</th><th>点位（估）</th><th>采集频率</th><th>协议</th></tr>
+          <tr><td>空压机</td><td>4台</td><td>~80点</td><td>1s</td><td rowspan="5">OPC UA<br/><span class="tag tag-green">WinCC内置</span></td></tr>
+          <tr><td>纯化水系统</td><td>2套</td><td>~60点</td><td>1s</td></tr>
+          <tr><td>注射用水</td><td>1套</td><td>~30点</td><td>1s</td></tr>
+          <tr><td>AHU 空调机组</td><td>~50台</td><td>~1000点</td><td>5s</td></tr>
+          <tr><td>冷水机组</td><td>4台</td><td>~80点</td><td>1s</td></tr>
+          <tr><td>冷却塔</td><td>4台</td><td>~40点</td><td>1s</td><td>OPC UA</td></tr>
+          <tr style="font-weight:bold;"><td>合计</td><td>~65台/套</td><td class="highlight">~1290点</td><td>-</td><td>-</td></tr>
         </table>
-        <div class="card" style="border-color: var(--secondary); margin-top:12px;">
-          <h4>💡 推荐实施路径</h4>
-          <ul>
-            <li><strong>Phase 1（1-2周）</strong>：纯软件方案 → 验证 OPC UA + RTSP 连通性</li>
-            <li><strong>Phase 2（3-4周）</strong>：完善自定义适配器 → 全量数据接入</li>
-            <li><strong>Phase 3（按需）</strong>：根据实际网络和安全需求补充硬件</li>
-          </ul>
-        </div>
       </section>
 
-      <!-- Slide 11: 部署架构 -->
+      <!-- Slide 11: EMS + CCTV -->
       <section>
-        <h2>部署架构建议</h2>
+        <h2>EMS + CCTV 采集详情</h2>
         <div class="two-col">
           <div>
             <div class="card">
-              <h4>NiFi 集群部署</h4>
-              <ul>
-                <li>3节点集群（高可用）</li>
-                <li>每个节点：4C8G 起步</li>
-                <li>ZooKeeper 协调（3节点）</li>
-                <li>SSL 加密通信</li>
-              </ul>
-            </div>
-            <div class="card">
-              <h4>自定义适配器部署</h4>
-              <ul>
-                <li>打包为 .nar 文件</li>
-                <li>放入 NiFi lib/ 目录</li>
-                <li>热加载，无需重启</li>
-                <li>版本化管理（Git）</li>
+              <h4>🌡️ EMS 环境监测</h4>
+              <div class="flow">
+                <div class="flow-box" style="font-size:0.8em;">
+                  <strong>WinCC</strong><br/>OPC UA
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6; font-size:0.8em;">
+                  <strong>NiFi</strong><br/>清洗+告警
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981; font-size:0.8em;">
+                  <strong>监测看板</strong>
+                </div>
+              </div>
+              <ul style="margin-top:8px;">
+                <li>温度、湿度、压差</li>
+                <li>车间级 + 设备级</li>
+                <li><span class="warn">⚠</span> GMP 合规：连续无间断，≤ 30s 间隔</li>
+                <li>异常值过滤 + 阈值告警</li>
               </ul>
             </div>
           </div>
           <div>
             <div class="card">
-              <h4>数据存储选型</h4>
+              <h4>📹 CCTV 视频监控</h4>
+              <div class="flow">
+                <div class="flow-box" style="font-size:0.8em;">
+                  <strong>72路<br/>海康摄像头</strong>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box" style="background:rgba(245,158,11,0.15); border-color:#F59E0B; font-size:0.8em;">
+                  <strong>自定义适配器</strong><br/>ISAPI+RTSP
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box" style="background:rgba(59,130,246,0.15); border-color:#3B82F6; font-size:0.8em;">
+                  <strong>NiFi</strong><br/>路由分发
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box" style="background:rgba(16,185,129,0.1); border-color:#10B981; font-size:0.8em;">
+                  <strong>NVR</strong>
+                </div>
+              </div>
+              <ul style="margin-top:8px;">
+                <li>RTSP 取流 → HLS/FLV 转码</li>
+                <li>ISAPI 获取设备状态 + 告警</li>
+                <li>心跳检测（72路设备在线监控）</li>
+                <li><span class="warn">⚠</span> 30天存储需 NVR（40-80TB）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: 部署架构 -->
+      <section>
+        <h2>部署架构</h2>
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <h4>NiFi 集群</h4>
+              <ul>
+                <li>3节点，4C8G 起步</li>
+                <li>ZooKeeper 3节点协调</li>
+                <li>SSL 加密 + 证书认证</li>
+                <li>自定义适配器 .nar 热部署</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>数据存储</h4>
               <table>
-                <tr><th>数据类型</th><th>推荐</th></tr>
+                <tr><th>类型</th><th>推荐</th></tr>
                 <tr><td>时序数据</td><td>InfluxDB / TDengine</td></tr>
                 <tr><td>关系数据</td><td>PostgreSQL</td></tr>
                 <tr><td>视频流</td><td>NVR + 对象存储</td></tr>
-                <tr><td>缓存</td><td>Redis / Kafka</td></tr>
+                <tr><td>消息缓冲</td><td>Kafka（可选）</td></tr>
               </table>
             </div>
+          </div>
+          <div>
             <div class="card">
-              <h4>监控运维</h4>
+              <h4>监控告警</h4>
               <ul>
-                <li>NiFi 自带监控 UI</li>
-                <li>Prometheus + Grafana 采集指标</li>
-                <li>ELK 日志收集</li>
+                <li>NiFi 内置 UI（数据流监控）</li>
+                <li>Prometheus + Grafana（指标采集）</li>
+                <li>ELK（日志收集分析）</li>
                 <li>告警规则：采集延迟 / 断流 / 异常值</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>安全要求</h4>
+              <ul>
+                <li>OPC UA 证书双向认证</li>
+                <li>NiFi SSL + RBAC 权限</li>
+                <li>网络隔离（工控网 vs 办公网）</li>
+                <li>操作审计日志</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Slide 12: 总结 -->
+      <!-- Slide 13: 总结 -->
       <section class="title-slide">
         <h1>方案总结</h1>
-        <div style="text-align:left; max-width:700px; margin:30px auto;">
+        <div style="text-align:left; max-width:750px; margin:20px auto; font-size:0.85em;">
           <div class="card" style="border-color: var(--secondary);">
-            <h4>✅ 纯软件方案（推荐优先）</h4>
+            <h4>✅ 纯软件方案（优先执行）</h4>
             <ul>
-              <li>WinCC 4.x 内置 OPC UA，无需硬件网关</li>
-              <li>NiFi + 自定义适配器覆盖全部数据源</li>
-              <li>部署周期短，成本最低</li>
+              <li>WinCC 4.x 内置 OPC UA → 无需网关</li>
+              <li>海康摄像头原生 RTSP/ISAPI → 无需额外设备</li>
+              <li>NiFi + 自定义适配器 → 全量数据接入</li>
+              <li><span class="highlight">额外硬件成本：¥0</span></li>
             </ul>
           </div>
           <div class="card" style="border-color: var(--accent);">
-            <h4>⚠️ 硬件补充（按需评估）</h4>
+            <h4>⚠️ 硬件补充（验证不通过时再买）</h4>
             <ul>
-              <li>网络隔离场景 → 工业网关</li>
-              <li>旧版系统 → OPC UA 网关</li>
-              <li>高性能需求 → 边缘工控机</li>
-              <li>视频存储 → NVR / 存储服务器</li>
+              <li>网络不通 → 工业网关（¥6K-24K）</li>
+              <li>无 OPC UA → OPC UA 网关（¥10K-40K）</li>
+              <li>视频隔离 → 流媒体网关（¥5K-15K）</li>
+              <li>性能瓶颈 → 边缘工控机（¥8K-30K）</li>
+              <li>视频存储 → NVR（¥50K-120K）</li>
+              <li>无服务器 → 服务器 × 3（¥15K-30K）</li>
             </ul>
           </div>
           <div class="card">
-            <h4>📊 采集规模</h4>
+            <h4>📊 规模总览</h4>
             <ul>
-              <li>设备：~137台/套（BMS+EMS+CCTV）</li>
-              <li>数据点位：~1500+</li>
-              <li>视频通道：72路</li>
+              <li>设备：~137台/套 | 数据点：~1500+ | 视频通道：72路</li>
+              <li>实施周期：Phase 1（1-2周验证）→ Phase 2（3-4周全量）→ Phase 3（按需）</li>
             </ul>
           </div>
         </div>
