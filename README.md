@@ -2,7 +2,7 @@
 
 **IT 项目经理 / PMP** | 5+ 年系统集成与数字化转型经验
 
-✉️ [frank@hk-it.hk](mailto:frank@hk-it.hk) | [𝕏 @frank4938](https://x.com/frank4938) | [🐦 飞书](https://frank4938.feishu.cn)
+✉️ [frank@hk-it.hk](mailto:frank@hk-it.hk) | [𝕏 @frank4938](https://x.com/frank4938) | [💬  A493832816]
 
 ---
 
